@@ -27,6 +27,6 @@
     <script>
         var apiUrl = "{{env("APP_URL")}}/api";
     </script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/admin/app.js') }}?v={{time()}}" defer></script>
 </body>
 </html>

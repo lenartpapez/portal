@@ -4,7 +4,7 @@
             <b>ID: </b>{{ instituteId }} <br>
             <b>Naslov: </b>{{ instituteName }}
         </deletemodal>
-        <importmodal ref="import_modal" @close="showImportModal = false">
+        <importmodal ref="import_modal">
             <table class="table table-bordered table-striped table-vcenter">
                     <thead>
                     <tr>
@@ -42,8 +42,8 @@
                 <h3 class="block-title">Inštituti</h3>
                 <div class="block-options">
                     <div class="custom-file">
-                        <button class="btn btn-sm btn-outline-success">Uvozi inštitute</button>
-                        <input ref="import" @change="previewImport" type="file"/>
+                        <button class="btn btn-sm btn-outline-success" @click.prevent="triggerFilePrompt">Uvozi inštitute</button>
+                        <input ref="import" @change="previewImport" type="file" style="display:none" />
                     </div>
                 </div>
             </div>
@@ -127,7 +127,9 @@
         },
 
         methods: {
-
+            triggerFilePrompt() {
+                this.$refs.import.click();
+            },
             getResults(page = 1) {
                 Dashmix.block("state_loading", "#postsBlock");
                 axios.get('/institutes?page=' + page + '&search=' + this.search)
@@ -140,7 +142,6 @@
             },
 
             parseData(url, callBack) {
-                this.showImportModal = true;
                 $("#importModal").modal("show");
                 Papa.parse(url, {
                     complete: function(results) {
@@ -154,7 +155,6 @@
             },
 
             previewImport() {
-                console.log("a");
                 this.parseData(this.$refs.import.files[0], this.saveImportData);
             },
 

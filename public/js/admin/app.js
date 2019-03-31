@@ -3948,6 +3948,9 @@ module.exports = {
     },
 
     methods: {
+        triggerFilePrompt: function triggerFilePrompt() {
+            this.$refs.import.click();
+        },
         getResults: function getResults() {
             var _this = this;
 
@@ -3962,7 +3965,6 @@ module.exports = {
             });
         },
         parseData: function parseData(url, callBack) {
-            this.showImportModal = true;
             $("#importModal").modal("show");
             __WEBPACK_IMPORTED_MODULE_0_papaparse___default.a.parse(url, {
                 complete: function complete(results) {
@@ -3974,7 +3976,6 @@ module.exports = {
             this.importData = data;
         },
         previewImport: function previewImport() {
-            console.log("a");
             this.parseData(this.$refs.import.files[0], this.saveImportData);
         },
         importInstitutes: function importInstitutes() {},
@@ -45049,85 +45050,74 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c(
-        "importmodal",
-        {
-          ref: "import_modal",
-          on: {
-            close: function($event) {
-              _vm.showImportModal = false
-            }
-          }
-        },
-        [
-          _c(
-            "table",
-            { staticClass: "table table-bordered table-striped table-vcenter" },
-            [
-              _c("thead", [
-                _c("tr", [
-                  _c(
-                    "th",
-                    {
-                      staticClass: "d-none d-sm-table-cell",
-                      staticStyle: { width: "240px" }
-                    },
-                    [_vm._v("Kontakt")]
-                  ),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Ime")]),
-                  _vm._v(" "),
-                  _c(
-                    "th",
-                    {
-                      staticClass: "d-none d-sm-table-cell",
-                      staticStyle: { width: "15%" }
-                    },
-                    [_vm._v("Kratica")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "th",
-                    {
-                      staticClass: "d-none d-sm-table-cell",
-                      staticStyle: { width: "15%" }
-                    },
-                    [_vm._v("Email")]
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.importData, function(institute) {
-                  return _c(
-                    "tr",
-                    { key: institute.name, attrs: { data: institute } },
-                    [
-                      _c("td", { staticClass: "font-w600" }, [
-                        _vm._v(_vm._s(institute[0]))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "font-w600" }, [
-                        _vm._v(_vm._s(institute[1]))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "d-none d-sm-table-cell" }, [
-                        _vm._v(_vm._s(institute[2]))
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "d-none d-sm-table-cell" }, [
-                        _vm._v(_vm._s(institute[3]))
-                      ])
-                    ]
-                  )
-                }),
-                0
-              )
-            ]
-          )
-        ]
-      ),
+      _c("importmodal", { ref: "import_modal" }, [
+        _c(
+          "table",
+          { staticClass: "table table-bordered table-striped table-vcenter" },
+          [
+            _c("thead", [
+              _c("tr", [
+                _c(
+                  "th",
+                  {
+                    staticClass: "d-none d-sm-table-cell",
+                    staticStyle: { width: "240px" }
+                  },
+                  [_vm._v("Kontakt")]
+                ),
+                _vm._v(" "),
+                _c("th", [_vm._v("Ime")]),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "d-none d-sm-table-cell",
+                    staticStyle: { width: "15%" }
+                  },
+                  [_vm._v("Kratica")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "d-none d-sm-table-cell",
+                    staticStyle: { width: "15%" }
+                  },
+                  [_vm._v("Email")]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.importData, function(institute) {
+                return _c(
+                  "tr",
+                  { key: institute.name, attrs: { data: institute } },
+                  [
+                    _c("td", { staticClass: "font-w600" }, [
+                      _vm._v(_vm._s(institute[0]))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "font-w600" }, [
+                      _vm._v(_vm._s(institute[1]))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "d-none d-sm-table-cell" }, [
+                      _vm._v(_vm._s(institute[2]))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "d-none d-sm-table-cell" }, [
+                      _vm._v(_vm._s(institute[3]))
+                    ])
+                  ]
+                )
+              }),
+              0
+            )
+          ]
+        )
+      ]),
       _vm._v(" "),
       _c("transition", { attrs: { name: "fade" } }, [
         _vm.message !== undefined
@@ -45211,12 +45201,21 @@ var render = function() {
               _c("div", { staticClass: "custom-file" }, [
                 _c(
                   "button",
-                  { staticClass: "btn btn-sm btn-outline-success" },
+                  {
+                    staticClass: "btn btn-sm btn-outline-success",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.triggerFilePrompt($event)
+                      }
+                    }
+                  },
                   [_vm._v("Uvozi inštitute")]
                 ),
                 _vm._v(" "),
                 _c("input", {
                   ref: "import",
+                  staticStyle: { display: "none" },
                   attrs: { type: "file" },
                   on: { change: _vm.previewImport }
                 })
@@ -46514,7 +46513,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__vue_loader_lib_runtime_compo
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -60393,62 +60392,62 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // App extends Template
 
 var App = function (_Template) {
-    _inherits(App, _Template);
+  _inherits(App, _Template);
 
-    /*
-     * Auto called when creating a new instance
-     *
-     */
-    function App() {
-        _classCallCheck(this, App);
+  /*
+   * Auto called when creating a new instance
+   *
+   */
+  function App() {
+    _classCallCheck(this, App);
 
-        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
-    }
+    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+  }
 
-    /*
-     *  Here you can override or extend any function you want from Template class
-     *  if you would like to change/extend/remove the default functionality.
-     *
-     *  This way it will be easier for you to update the module files if a new update
-     *  is released since all your changes will be in here overriding the original ones.
-     *
-     *  Let's have a look at the _uiInit() function, the one that runs the first time
-     *  we create an instance of Template class or App class which extends it. This function
-     *  inits all vital functionality but you can change it to fit your own needs.
-     *
-     */
+  /*
+   *  Here you can override or extend any function you want from Template class
+   *  if you would like to change/extend/remove the default functionality.
+   *
+   *  This way it will be easier for you to update the module files if a new update
+   *  is released since all your changes will be in here overriding the original ones.
+   *
+   *  Let's have a look at the _uiInit() function, the one that runs the first time
+   *  we create an instance of Template class or App class which extends it. This function
+   *  inits all vital functionality but you can change it to fit your own needs.
+   *
+   */
 
-    /*
-     * EXAMPLE #1 - Removing default functionality by making it empty
-     *
-     */
+  /*
+   * EXAMPLE #1 - Removing default functionality by making it empty
+   *
+   */
 
-    //  _uiInit() {}
-
-
-    /*
-     * EXAMPLE #2 - Extending default functionality with additional code
-     *
-     */
-
-    //  _uiInit() {
-    //      // Call original function
-    //      super._uiInit();
-    //
-    //      // Your extra JS code afterwards
-    //  }
-
-    /*
-     * EXAMPLE #3 - Replacing default functionality by writing your own code
-     *
-     */
-
-    //  _uiInit() {
-    //      // Your own JS code without ever calling the original function's code
-    //  }
+  //  _uiInit() {}
 
 
-    return App;
+  /*
+   * EXAMPLE #2 - Extending default functionality with additional code
+   *
+   */
+
+  //  _uiInit() {
+  //      // Call original function
+  //      super._uiInit();
+  //
+  //      // Your extra JS code afterwards
+  //  }
+
+  /*
+   * EXAMPLE #3 - Replacing default functionality by writing your own code
+   *
+   */
+
+  //  _uiInit() {
+  //      // Your own JS code without ever calling the original function's code
+  //  }
+
+
+  return App;
 }(__WEBPACK_IMPORTED_MODULE_4__modules_template__["a" /* default */]);
 
 // Once everything is loaded
@@ -60456,8 +60455,8 @@ var App = function (_Template) {
 
 /* unused harmony default export */ var _unused_webpack_default_export = (App);
 __WEBPACK_IMPORTED_MODULE_1_jquery___default()(function () {
-    // Create a new instance of App
-    window.Dashmix = new App();
+  // Create a new instance of App
+  window.Dashmix = new App();
 });
 
 /***/ }),
@@ -62738,7 +62737,7 @@ module.exports = "/fonts/Simple-Line-Icons.eot?f33df365d6d0255b586f2920355e94d7"
 /***/ "./public/assets/dashmix/fonts/simple-line-icons/Simple-Line-Icons.svg?v=2.4.0":
 /***/ (function(module, exports) {
 
-module.exports = "/fonts/Simple-Line-Icons.svg?73a932562a1e314703469d0a352fcda9";
+module.exports = "/fonts/Simple-Line-Icons.svg?2fe2efe63441d830b1acd106c1fe8734";
 
 /***/ }),
 
@@ -63515,7 +63514,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -63600,7 +63599,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -63683,7 +63682,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -63757,7 +63756,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -63842,7 +63841,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -63926,7 +63925,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -64011,7 +64010,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -64096,7 +64095,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -64179,7 +64178,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -64251,7 +64250,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -64323,7 +64322,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -64397,7 +64396,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -64482,7 +64481,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -64567,7 +64566,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -64650,7 +64649,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -64724,7 +64723,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("/Users/lenartpapez/Desktop/Faks/portal/node_modules/vue-hot-reload-api/dist/index.js")
+  var api = require("/Users/papezlp/Code/portal/node_modules/vue-hot-reload-api/dist/index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
