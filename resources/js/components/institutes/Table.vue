@@ -1,24 +1,37 @@
 <template>
     <div class="content">
-        <deletemodal v-if="showDeleteModal" ref="mod" @close="showDeleteModal = false" @delete="deleteInstitute(instituteId)">
-            <b>ID: </b>{{ instituteId }} <br>
-            <b>Naslov: </b>{{ instituteName }}
+        <contactsmodal ref="contacts_modal" @close="closeContactsModal">
+            <template #contacts>
+                <h4>{{ instituteName }}</h4>
+                <div v-for="contact in contacts" :data="contact" :key="contact.id"> 
+                    <b>{{ contact.contact_name }}: </b>{{ contact.email }} <br>
+                </div>
+            </template>
+        </contactsmodal>
+        <deletemodal ref="mod" @close="closeDeleteModal" @delete="deleteInstitute(instituteId)">
+            <template #header>
+                <h5 class="modal-title" id="exampleModalLongTitle">Izbriši inštitut?</h5>
+            </template>
+            <template #body>
+                <b>ID: </b>{{ instituteId }} <br>
+                <b>Naslov: </b>{{ instituteName }}
+            </template>
         </deletemodal>
-        <importmodal ref="import_modal">
+        <importmodal ref="import_modal" @close="closeImportModal" @import="importInstitutes">
             <table class="table table-bordered table-striped table-vcenter">
                     <thead>
                     <tr>
-                        <th class="d-none d-sm-table-cell" style="width: 240px;">Kontakt</th>
-                        <th>Ime</th>
-                        <th class="d-none d-sm-table-cell" style="width: 15%;">Kratica</th>
+                        <th class="d-none d-sm-table-cell" style="width: 50%">Ime</th>
+                        <th>Kratica</th>
+                        <th class="d-none d-sm-table-cell" style="width: 15%;">Kontakt</th>
                         <th class="d-none d-sm-table-cell" style="width: 15%;">Email</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="institute in importData" :data="institute" :key="institute.name">
-                        <td class="font-w600">{{ institute[0] }}</td>
                         <td class="font-w600">{{ institute[1] }}</td>
-                        <td class="d-none d-sm-table-cell">{{ institute[2] }}</td>
+                        <td class="font-w600">{{ institute[2] }}</td>
+                        <td class="d-none d-sm-table-cell">{{ institute[0] }}</td>
                         <td class="d-none d-sm-table-cell">{{ institute[3] }}</td>
                     </tr>
                     </tbody>
@@ -29,7 +42,7 @@
                 <div class="flex-fill ml-3">
                     <p class="mb-0">{{ message }}</p>
                 </div>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <button type="button" class="close" @click="message = undefined" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -42,7 +55,7 @@
                 <h3 class="block-title">Inštituti</h3>
                 <div class="block-options">
                     <div class="custom-file">
-                        <button class="btn btn-sm btn-outline-success" @click.prevent="triggerFilePrompt">Uvozi inštitute</button>
+                        <button class="btn btn-sm btn-outline-success" @click.prevent="triggerFilePrompt">Uvozi inštitute in kontakte</button>
                         <input ref="import" @change="previewImport" type="file" style="display:none" />
                     </div>
                 </div>
@@ -52,20 +65,20 @@
                     <thead>
                     <tr>
                         <th class="text-center" style="width: 80px;">ID</th>
-                        <th class="d-none d-sm-table-cell" style="width: 240px;">Kontakt</th>
                         <th>Ime</th>
                         <th class="d-none d-sm-table-cell" style="width: 15%;">Kratica</th>
-                        <th class="d-none d-sm-table-cell" style="width: 15%;">Email</th>
+                        <th  class="d-none d-sm-table-cell">Kontakti</th>
                         <th style="width: 15%;"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="institute in laravelData.data" :data="institute" :key="institute.id">
                         <td class="text-center">{{ institute.id }}</td>
-                        <td class="font-w600">{{ institute.contact_name }}</td>
                         <td class="font-w600">{{ institute.name }}</td>
-                        <td class="d-none d-sm-table-cell">{{ institute.short }}</td>
-                         <td class="d-none d-sm-table-cell">{{ institute.email }}</td>
+                        <td class="font-w600">{{ institute.short }}</td>
+                        <td class="font-w600">
+                            <button class="btn btn-primary" @click="openContactsModal(institute.name, institute.contacts)">Kontakti</button>
+                        </td>
                         <td>
                                 <div class="dropdown d-inline-block" style="float: right">
                                 <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" id="dropdown-default-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -76,7 +89,7 @@
                                             <router-link class="dropdown-item btn btn-sm btn-outline-primary" :to="{ name: 'institutes.show', params: { id: institute.id }}">
                                                 <i class="far fa-fw fa-eye mr-1"></i>Preglej
                                             </router-link>
-                                            <a class="dropdown-item btn btn-sm btn-outline-primary" @click="showDeleteModal = true; instituteId = institute.id; instituteName = institute.name">
+                                            <a class="dropdown-item btn btn-sm btn-outline-primary" @click="openDeleteModal(institute.id, institute.name)">
                                                 <i class="far fa-fw fa-trash-alt mr-1"></i>Izbriši
                                             </a>
                                         </div>
@@ -99,13 +112,13 @@
     export default {
         data() {
             return {
-                showDeleteModal: false,
                 search: '',
                 message: this.msg,
                 laravelData: {},
                 instituteId: '',
                 instituteName: '',
-                importData: []
+                importData: [],
+                contacts: []
             }
         },
 
@@ -156,33 +169,51 @@
 
             previewImport() {
                 this.parseData(this.$refs.import.files[0], this.saveImportData);
+                this.$refs.import.value = null;
             },
 
             importInstitutes() {
-
+                axios.post('institutes/import', {
+                    importData: this.importData 
+                }).then((response) => {
+                        this.message = response.data;
+                        this.getResults();
+                    }).catch((error) => {console.log(error)});
+                this.$refs.import_modal.$emit('close');
             },
 
             deleteInstitute(id) {
                 axios.post('institutes/' + id, {_method: 'delete'})
                     .then((response) => {
                         this.getResults();
-                        this.message = response.data[1];
+                        this.message = response.data;
                     }).catch((error) => {console.log(error)});
                 this.$refs.mod.$emit('close');
             },
 
-            showImportModal() {
-                $(document).ready(function(){
-                    $('importmodal').modal('show');
-                });
+            openDeleteModal(id, name) {
+                $("#deleteModal").modal("show");
+                this.instituteId = id; 
+                this.instituteName = name;
+            },
+
+            closeDeleteModal() {
+                $("#deleteModal").modal("hide");
             },
 
             closeImportModal() {
-                $(document).ready(function(){
-                    $('importmodal').modal('hide');
-                });
-            }
+                $("#importModal").modal("hide");
+            },
 
+            closeContactsModal() {
+                $("#contactsModal").modal("hide");
+            },
+
+            openContactsModal(institute, contacts) {
+                this.contacts = contacts;
+                this.instituteName = institute;
+                $("#contactsModal").modal("show");
+            }
         },
 
 

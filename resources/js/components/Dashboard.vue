@@ -13,7 +13,7 @@
                         <div class="row w-100 text-center">
                             <div class="col-6 col-xl-4 offset-xl-4 js-appear-enabled animated fadeIn" data-toggle="appear" data-timeout="300">
                                 <p class="font-size-h3 font-w600 text-body-color-dark mb-0">
-                                    5
+                                    {{ instituteCount }}
                                 </p>
                                 <p class="font-size-sm font-w700 text-uppercase mb-0">
                                     <i class="si si-graduation text-muted mr-1"></i> Inštitutov
@@ -45,7 +45,7 @@
                                     Področij
                                 </p>
                                 <p class="font-size-h3 font-w300 mb-0">
-                                    13
+                                    {{  fieldCount }}
                                 </p>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                                     Ciljev
                                 </p>
                                 <p class="font-size-h3 font-w300 mb-0">
-                                    45
+                                    {{ goalCount }}
                                 </p>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                     Sodelujoči inštituti
                                 </p>
                                 <p class="font-size-h3 font-w300 mb-0">
-                                    3
+                                    {{ connectedInstituteCount }}
                                 </p>
                             </div>
                         </div>
@@ -113,7 +113,13 @@
 
         data() {
             return {
-                postCount: '',
+                postCount: 0,
+                instituteCount: 0,
+                connectedInstituteCount: 0,
+                companyCount: 0,
+                connectedCompaniesCount: 0,
+                fieldCount: 0,
+                goalCount: 0,
                 loading: this.isActive
             }
         },
@@ -124,6 +130,10 @@
 
         mounted() {
             this.getPostCount();
+            this.getInstituteCount();
+            this.getCompanyCount();
+            this.getFieldCount();
+            this.getGoalCount();
             setTimeout(function() {
                 this.loading = false;
             }.bind(this), 1000)
@@ -134,7 +144,42 @@
                 this.axios.get('posts')
                     .then((response) => { this.postCount = response.data })
                     .catch((error) => { console.log(error)});
+            },
+
+            getInstituteCount() {
+                this.axios.get('institutes?count')
+                    .then((response) => { 
+                        this.instituteCount = response.data.institutes;
+                        this.connectedInstituteCount = response.data.connectedInstitutes;
+                    })
+                    .catch((error) => { console.log(error)});
+            },
+
+            getCompanyCount() {
+                this.axios.get('companies?count')
+                    .then((response) => { 
+                        this.companyCount = response.data.companies;
+                        this.connectedCompaniesCount = response.data.connectedCompanies;
+                    })
+                    .catch((error) => { console.log(error)});
+            },
+
+            getFieldCount() {
+                this.axios.get('fields?count')
+                    .then((response) => { 
+                        this.fieldCount = response.data;
+                    })
+                    .catch((error) => { console.log(error)});
+            },
+
+            getGoalCount() {
+                this.axios.get('goals?count')
+                    .then((response) => { 
+                        this.goalCount = response.data;
+                    })
+                    .catch((error) => { console.log(error)});
             }
+
         },
 
         /* beforeRouteEnter (to, from, next) {

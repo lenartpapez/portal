@@ -28,9 +28,9 @@ Vue.use(VueAxios, axios);
 axios.defaults.baseURL = apiUrl;
 
 Vue.component('pagination', require('laravel-vue-pagination'));
-
 Vue.component('deletemodal', require('./components/DeleteModal.vue').default);
 Vue.component('importmodal', require('./components/ImportModal.vue').default);
+Vue.component('contactsmodal', require('./components/ContactsModal.vue').default);
 Vue.component('sdbr', require('./components/Sidebar.vue').default);
 Vue.component('hdr', require('./components/Header.vue').default);
 
@@ -52,6 +52,7 @@ const router = new VueRouter({
         { name: 'institutes.show', path: '/institutes/:id', component: require("./components/institutes/Show").default, meta: { auth: true } },
         // { name: 'institutes.edit', path: '/institutes/:id/edit', component: require("./institutes/posts/Edit").default, meta: { auth: true } },
         { name: 'companies', path: '/companies', component: require("./components/companies/Table").default, props: true, meta: { auth: true } },
+        { name: 'companies.show', path: '/companies/:id', component: require("./components/companies/Show").default, meta: { auth: true } },
         { name: 'companygoal', path: '/companygoal', component: require("./components/connections/CompanyGoal").default, meta: { auth: true } },
         { name: 'institutegoal', path: '/institutegoal', component: require("./components/connections/InstituteGoal").default, meta: { auth: true } },
     ]

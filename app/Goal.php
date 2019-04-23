@@ -15,4 +15,9 @@ class Goal extends Model
     {
         return $this->belongsToMany('App\Company');
     }
+
+    public function institutes()
+    {
+        return $this->belongsToMany('App\Institute');
+    }
 }

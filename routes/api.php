@@ -23,11 +23,13 @@ Route::group(['middleware' => 'jwt.auth'], function() {
     Route::get('auth/user', 'Admin\\AuthController@user');
     Route::post('auth/logout', 'Admin\\AuthController@logout');
     Route::resource('posts', 'Admin\\PostsController', ['except' => ['edit', 'create']]);
-    Route::get('fields', 'Admin\\WizardController@availableFields');
-    Route::get('goals', 'Admin\\WizardController@availableGoals');
+    Route::get('fields', 'Admin\\FieldsController@index');
+    Route::get('goals', 'Admin\\GoalsController@index');
     Route::resource('institutes', 'Admin\\InstitutesController', ['except' => ['edit', 'create']]);
+    Route::post('institutes/import', 'Admin\\InstitutesController@import');
     Route::post('institute_goal', 'Admin\\WizardController@storeIG');
     Route::resource('companies', 'Admin\\CompaniesController', ['except' => ['edit', 'create']]);
+    Route::post('companies/import', 'Admin\\CompaniesController@import');
     Route::post('company_goal', 'Admin\\WizardController@storeCG');
 });
 

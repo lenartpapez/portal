@@ -83,7 +83,7 @@
         },
 
         mounted() {
-            axios.get('institutes/' + this.$route.params.id).then((response) => {
+            axios.get('companies/' + this.$route.params.id).then((response) => {
                 this.data = response.data;
             }).catch(error => console.log(error));
         },
