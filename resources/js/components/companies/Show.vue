@@ -15,6 +15,16 @@
         <div class="content">
             <div class="block block-rounded block-bordered" id="createPostBlock">
                 <div class="block-content">
+                    <transition name="fade">
+                                <div v-if="message !== undefined" class="alert alert-success alert-dismissable d-flex align-items-center" role="alert">
+                                    <div class="flex-fill ml-3">
+                                        <p class="mb-0">{{ message }}</p>
+                                    </div>
+                                    <button type="button" class="close" @click="message = undefined" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                            </transition>
                     <div class="row push">
                         <div class="col-xl-3 col-12">
                             <h2 class="content-heading pt-0">Podatki</h2>
@@ -42,7 +52,12 @@
                                 <div class="block-header block-header-default">
                                     <h3 class="block-title">{{ goal.field.name }} <small> {{ goal.name }}</small></h3>
                                     <div class="block-options">              
-                                        <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle"><i class="si si-arrow-down"></i></button>
+                                        <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle">
+                                            <i class="si si-arrow-down"></i>
+                                        </button>
+                                        <button type="button" class="btn-block-option" v-on:click="deleteConnection(goal.id)" data-toggle="block-option" data-action="close">
+                                            <i class="si si-close"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="block-content hide">
@@ -59,7 +74,7 @@
                     Izbriši
                 </button>
         </div>
-        <deletemodal v-if="showModal" @close="showModal = false" @delete="deleteInstitute">Izbriši objavo? <br> ID: {{ $route.params.id }}</deletemodal>
+        <deletemodal v-if="showModal" @close="showModal = false" @delete="deleteCompany">Izbriši podjetje? <br> ID: {{ $route.params.id }}</deletemodal>
     </div>
 </template>
 
@@ -70,16 +85,24 @@
         data() {
             return {
                 showModal: false,
-                data: []
+                data: [],
+                message: undefined
             }
         },
 
         methods: {
-            deleteInstitute() {
-                axios.post('institutes/' + this.$route.params.id,{_method: 'delete'})
+
+            deleteCompany() {
+                axios.post('companies/' + this.$route.params.id,{_method: 'delete'})
                     .then((response) => { this.$router.push({ name: 'institutes', params: { msg: response.data[1] } }) })
                     .catch((error) => { console.log(error)});
             },
+
+            deleteConnection(id) {
+                axios.post('company_goal?company_id=' + this.$route.params.id + "&goal_id=" + id, { _method: 'delete' })
+                    .then((response) => { this.message = response.data })
+                    .catch((error) => { console.log(error)});
+            }
         },
 
         mounted() {
@@ -87,6 +110,7 @@
                 this.data = response.data;
             }).catch(error => console.log(error));
         },
+        
 
     }
 </script>

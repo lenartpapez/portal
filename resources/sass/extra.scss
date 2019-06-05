@@ -5,6 +5,18 @@ html, body {
   font-family: $roboto;
 }
 
+.container {
+  margin-top: 70px;
+}
+
+.table .thead-dark th {
+  background: #343a40;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
 .navbar {
   position: relative;
   background: #e9e9e9;
@@ -26,7 +38,6 @@ html, body {
   }
 }
 
-#posts {
   .pagination > .active > .page-link {
     background: rgba(55, 163, 53, 0.72);
   }
@@ -57,7 +68,6 @@ html, body {
       background: #484848;
     }
   }
-}
 
 .wlcom {
   transition: all .2s ease-in-out;
@@ -68,7 +78,6 @@ html, body {
 
 .navbar-brand {
   z-index: auto;
-  margin-left: 9px;
 }
 
 .links {
@@ -81,7 +90,6 @@ html, body {
     letter-spacing: .1rem;
     text-decoration: none !important;
     text-transform: uppercase;
-
     &:hover {
       color: #0ba360;
     }
@@ -137,12 +145,40 @@ html, body {
   }
 }
 
+#lower-nav {
+  .active {
+    background: #343a40 !important;
+    color: white;
+  }
+  .dropdown-menu {
+    transform: unset !important;
+    margin-top: 0 !important;
+    top: 64px !important;
+    border: 0;
+    padding: 0;
+    width: 100%;
+    &.show {
+      display: flex;
+    }
+    .dropdown-item {
+      text-align: center;
+      background: #ececec;
+      &:hover {
+        background: darken(#ececec, 10%);
+      }
+    }
+  }
+  .dropdown-toggle:after {
+    display: none;
+  }
+}
+
 #link {
   border-radius: 0;
   border: none;
   &:hover {
-    transition: .4s;
-    background: #404346 !important;
+    transition: .2s;
+    background: #343a40 !important;
     color: #fff;
   }
   box-shadow: none;

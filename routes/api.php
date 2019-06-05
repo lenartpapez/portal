@@ -22,15 +22,17 @@ Route::post('auth/login', 'Admin\\AuthController@login');
 Route::group(['middleware' => 'jwt.auth'], function() {
     Route::get('auth/user', 'Admin\\AuthController@user');
     Route::post('auth/logout', 'Admin\\AuthController@logout');
-    Route::resource('posts', 'Admin\\PostsController', ['except' => ['edit', 'create']]);
+    Route::apiResource('posts', 'Admin\\PostsController');
     Route::get('fields', 'Admin\\FieldsController@index');
     Route::get('goals', 'Admin\\GoalsController@index');
-    Route::resource('institutes', 'Admin\\InstitutesController', ['except' => ['edit', 'create']]);
+    Route::apiResource('institutes', 'Admin\\InstitutesController');
     Route::post('institutes/import', 'Admin\\InstitutesController@import');
     Route::post('institute_goal', 'Admin\\WizardController@storeIG');
-    Route::resource('companies', 'Admin\\CompaniesController', ['except' => ['edit', 'create']]);
+    Route::apiResource('companies', 'Admin\\CompaniesController');
     Route::post('companies/import', 'Admin\\CompaniesController@import');
     Route::post('company_goal', 'Admin\\WizardController@storeCG');
+    Route::delete('company_goal', 'Admin\\CompaniesController@deleteConnection');
+
 });
 
 Route::group(['middleware' => 'jwt.refresh'], function(){

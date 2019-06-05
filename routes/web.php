@@ -11,13 +11,19 @@
 |
 */
 
-Route::get('/', 'FrontPage\PostsController@latest')->name('home');
-Route::post('import', 'InstitutesController@import')->name('import');
-Route::get('posts', 'FrontPage\PostsController@all')->name('posts');
+Route::get('/', 'FrontPage\PostsController@latest');
+Route::get('posts', 'FrontPage\PostsController@all');
 Route::get('posts/{id}', 'FrontPage\PostsController@single')->name('singlePost');
 Route::get('posts/{id}/comments', 'FrontPage\PostsController@getComments');
 Route::get('posts/{id}/user', 'FrontPage\PostsController@getUser');
 Route::post('posts/addcomment', 'FrontPage\PostsController@addComment');
+
+Route::get('institutes', 'FrontPage\InstitutesController@index');
+Route::get('companies', 'FrontPage\CompaniesController@index');
+Route::get('companies/{id}', 'FrontPage\CompaniesController@show')->name('singleCompany');
+Route::get('institutes/{id}', 'FrontPage\InstitutesController@show')->name('singleInstitute');
+Route::get('srip3/{slug}', 'FrontPage\SripController@index');
+Route::get('srip4/{slug}', 'FrontPage\SripController@index');
 
 Route::auth();
 

@@ -24,9 +24,23 @@ class InstitutesController extends Controller
         return $institutes->get();
    }
 
-   public function store() {
-
+   public function store(Request $request) {
+        $institute = new Institute;
+        $institute->name = $request->get('name');
+        $institute->short = $request->get('short');
+        $institute->website = $request->get('website');
+        if($institute->save()) { 
+            foreach($request->get('contacts') as $con) {
+                $contactPerson = new ContactPerson;
+                $contactPerson->contact_name = $con['contact_name'];
+                $contactPerson->email = $con['email'];
+                $institute->contacts()->save($contactPerson);
+            }
+            return response("Inštitut je bil uspešno dodan."); 
+        }
+        return response("Inštitut ni bil uspešno dodan.");  
    }
+
 
    public function show($id) {
        $institute = Institute::with('contacts', 'goals.field')->where('id', '=', $id)->first();

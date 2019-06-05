@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <router-link :to="{ name: 'edit' }" class="btn btn-warning">Popravi</router-link>
+            <router-link :to="{ name: 'posts.edit' }" class="btn btn-warning">Popravi</router-link>
                 <button @click="showModal = true" class="btn btn-danger">
                     Izbriši
                 </button>

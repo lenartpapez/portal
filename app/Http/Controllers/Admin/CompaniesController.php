@@ -24,8 +24,21 @@ class CompaniesController extends Controller
         return $companies->get();
    }
 
-   public function store() {
-
+   public function store(Request $request) {
+        $company = new Company;
+        $company->name = $request->get('name');
+        $company->short = $request->get('short');
+        $company->website = $request->get('website');
+        if($company->save()) { 
+            foreach($request->get('contacts') as $con) {
+                $contactPerson = new ContactPerson;
+                $contactPerson->contact_name = $con['contact_name'];
+                $contactPerson->email = $con['email'];
+                $company->contacts()->save($contactPerson);
+            }
+            return response("Podjetje je bilo uspešno dodano."); 
+        }
+        return response("Podjetje ni bilo uspešno dodano.");  
    }
 
    public function show($id) {
@@ -35,6 +48,13 @@ class CompaniesController extends Controller
 
    public function update() {
 
+   }
+
+   public function deleteConnection() {
+        $company = Company::find(request('company_id'));
+        if($company->goals()->detach(request('goal_id'))) {
+            return response("Cilj odstranjen.");
+        }
    }
 
    public function destroy($id) {

@@ -1,8 +1,13 @@
 <template>
     <div class="content">
-        <deletemodal v-if="showModal" ref="mod" @close="showModal = false" @delete="deletePost(postId)">
-            <b>ID: </b>{{ postId }} <br>
-            <b>Naslov: </b>{{ postTitle }}
+        <deletemodal ref="delete_modal" @close="closeDeleteModal()" @delete="deletePost(postId)">
+            <template #header>
+                <h5 class="modal-title" id="exampleModalLongTitle">Izbriši objavo?</h5>
+            </template>
+            <template #body>
+                <b>ID: </b>{{ postId }} <br>
+                <b>Naslov: </b>{{ postTitle }}
+            </template>
         </deletemodal>
         <transition name="fade">
             <div v-if="message !== undefined" class="alert alert-success alert-dismissable d-flex align-items-center" role="alert">
@@ -21,9 +26,7 @@
             <div class="block-header block-header-default">
                 <h3 class="block-title">Objave</h3>
                 <div class="block-options">
-                    <form class="form-inline">
-                        <router-link class="create btn btn-sm btn-outline-primary" :to="{ name: 'posts.create' }">Dodaj objavo</router-link>
-                    </form>
+                    <router-link class="create btn btn-sm btn-outline-primary" :to="{ name: 'posts.create' }">Dodaj objavo</router-link>
                 </div>
             </div>
             <div class="block-content block-content-full">
@@ -32,8 +35,8 @@
                     <tr>
                         <th class="text-center" style="width: 80px;">ID</th>
                         <th>Naslov</th>
-                        <th class="d-none d-sm-table-cell" style="width: 15%;">Ustvarjena</th>
-                        <th style="width: 15%;"></th>
+                        <th class="d-none d-sm-table-cell" style="width: 20%;">Ustvarjena</th>
+                        <th style="width: 20%;"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,8 +45,7 @@
                         <td class="font-w600">{{ post.title }}</td>
                         <td class="d-none d-sm-table-cell">{{ post.created_at | format }}</td>
                         <td>
-                            <div class="col-sm-6 col-xl-4" style="float: right">
-                                <div class="dropdown d-inline-block">
+                                <div class="dropdown d-inline-block" style="float: right">
                                 <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" id="dropdown-default-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Akcije
                                     </button>
@@ -52,16 +54,12 @@
                                             <router-link class="dropdown-item btn btn-sm btn-outline-primary" :to="{ name: 'posts.show', params: { id: post.id }}">
                                                 <i class="far fa-fw fa-eye mr-1"></i>Preglej
                                             </router-link>
-                                            <router-link class="dropdown-item btn btn-sm btn-outline-primary" :to="{ name: 'posts.edit', params: { id: post.id }}">
-                                                <i class="far fa-fw fa-edit mr-1"></i>Uredi
-                                            </router-link>
-                                            <a class="dropdown-item btn btn-sm btn-outline-primary" @click="showModal = true; postId = post.id; postTitle = post.title">
+                                            <a class="dropdown-item btn btn-sm btn-outline-primary" @click="openDeleteModal(post.id, post.title)">
                                                 <i class="far fa-fw fa-trash-alt mr-1"></i>Izbriši
                                             </a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </td>
                     </tr>
                     </tbody>
@@ -77,7 +75,6 @@
     export default {
         data() {
             return {
-                showModal: false,
                 search: '',
                 message: this.msg,
                 laravelData: {},
@@ -124,6 +121,17 @@
                     }, 1000)
                 });
             },
+
+            openDeleteModal(id, name) {
+                $("#deleteModal").modal("show");
+                this.postId = id; 
+                this.postTitle = name;
+            },
+
+            closeDeleteModal() {
+                $("#deleteModal").modal("hide");
+            },
+
         },
 
 

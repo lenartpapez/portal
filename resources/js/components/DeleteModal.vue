@@ -13,7 +13,7 @@
                 </div>
                 <div class="modal-footer">
                     <button @click="$emit('delete')" class="btn btn-danger mr-2">Izbriši</button>
-                    <button @click="$emit('close')" class="btn btn-info">Prekliči</button>
+                    <button @click="$emit('close')" class="btn btn-light">Prekliči</button>
                 </div>
             </div>
         </div>

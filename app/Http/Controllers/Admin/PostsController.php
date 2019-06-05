@@ -9,11 +9,7 @@ use Spatie\MediaLibrary\Models\Media;
 
 class PostsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $posts = Post::latest();
@@ -26,12 +22,7 @@ class PostsController extends Controller
         return response(Post::all()->count());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request)
     {
         $post = new Post;
@@ -45,25 +36,13 @@ class PostsController extends Controller
         return response("Objava ni bila uspešno dodana.");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
     public function show($id)
     {
         $post = Post::find($id);
         return $post->toJson();
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         $post = Post::find($id);
@@ -74,12 +53,6 @@ class PostsController extends Controller
         return response("Objava popravljena.");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param String $ids
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($ids)
     {
         $message = "Objava [ID: ".$ids."] je bila odstranjena.";

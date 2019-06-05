@@ -14,7 +14,7 @@
             </template>
             <template #body>
                 <b>ID: </b>{{ instituteId }} <br>
-                <b>Naslov: </b>{{ instituteName }}
+                <b>Ime: </b>{{ instituteName }}
             </template>
         </deletemodal>
         <importmodal ref="import_modal" @close="closeImportModal" @import="importInstitutes">
@@ -55,6 +55,7 @@
                 <h3 class="block-title">Inštituti</h3>
                 <div class="block-options">
                     <div class="custom-file">
+                        <router-link class="create btn btn-sm btn-outline-primary" :to="{ name: 'institutes.create' }">Dodaj inštitut</router-link>
                         <button class="btn btn-sm btn-outline-success" @click.prevent="triggerFilePrompt">Uvozi inštitute in kontakte</button>
                         <input ref="import" @change="previewImport" type="file" style="display:none" />
                     </div>

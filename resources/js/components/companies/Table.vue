@@ -58,6 +58,7 @@
                 <h3 class="block-title">Podjetja</h3>
                 <div class="block-options">
                     <div class="custom-file">
+                        <router-link class="create btn btn-sm btn-outline-primary" :to="{ name: 'companies.create' }">Dodaj podjetje</router-link>
                         <button class="btn btn-sm btn-outline-success" @click.prevent="triggerFilePrompt">Uvozi podjetja in kontakte</button>
                         <input ref="import" @change="previewImport" type="file" style="display:none" />
                     </div>
