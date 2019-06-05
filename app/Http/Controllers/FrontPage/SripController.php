@@ -9,17 +9,16 @@ use App\Company;
 
 class SripController extends Controller
 {
-    public function index($slug) {
+    public function index($slug)
+    {
         $companies = Company::with('goals')->get();
-        if(request()->has('for_company')) {
+        if (request()->has('for_company')) {
             $company = Company::with('goals')->findOrFail(request('for_company'));
-            $institutes = Institute::all();
-            /*
-                $institutes = ... Get all institutes with at least one same goal as this company.
-            */
+            $goals = $company->goals->pluck("id");
+            $institutes = Institute::whereHas("goals", function ($query) use ($goals) {
+                $query->whereIn("id", $goals);
+            })->get();
         }
         return view('pages.srip3/'.$slug, ['selectedCompany' => isset($company) ? $company : null, 'institutes' => isset($institutes) ? $institutes : null, 'companies' => $companies]);
     }
-
-
 }
