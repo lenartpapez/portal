@@ -6,33 +6,63 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Institute;
 use App\Company;
+use App\Srip;
 
 class SripController extends Controller
 {
-    public function index($slug)
+    public function index($number, $slug)
     {
-        if($slug == 'companies') {
-            $companies = Company::with('goals')->get();
+        $items = $this->getDropdownItems($number, $slug);
+
+        return view('pages.srip/'.$slug, compact("items", "number", "slug"));
+    }
+
+    public function show(Request $request, $number, $slug, $id)
+    {
+        $items = $this->getDropdownItems($number, $slug);
+        $item = null;
+        $items->each(function ($sripItem) use ($id, &$item) {
+            if ($id == $sripItem->id) {
+                $item = $sripItem;
+            }
+        });
+
+        $goals = $item->goals->pluck("id");
+
+        if (get_class($item) === Company::class) {
+            $relatedClass = Institute::class;
         } else {
-            $institutes = Institute::with('goals')->get();
+            $relatedClass = Company::class;
         }
-        if (request()->has('for_company')) {
-            $company = Company::with('goals')->findOrFail(request('for_company'));
-            $goals = $company->goals->pluck("id");
-            $institutes = Institute::whereHas("goals", function ($query) use ($goals) {
-                $query->whereIn("id", $goals);
-            })->get();
+
+        $related = $relatedClass::whereHas("goals", function ($query) use ($goals) {
+            $query->whereIn("id", $goals);
+        })->get();
+
+        return view('pages.srip/'.$slug, compact("items", "related", "item", "number", "slug"));
+    }
+
+    /**
+     * Get dropdown items
+     *
+     * @param int $number
+     * @param string $slug
+     * @return void
+     */
+    private function getDropdownItems($number, $slug)
+    {
+        $srip = Srip::whereName("SRIP$number")->with("fields.goals.$slug")->first();
+
+        $items = collect();
+
+        if ($srip) {
+            $srip->fields->each(function ($field) use (&$items, $slug) {
+                $field->goals->each(function ($goal) use (&$items, $slug) {
+                    $items = $items->concat($goal->{$slug});
+                });
+            });
         }
-        if (request()->has('for_institute')) {
-            $institute = Institute::with('goals')->findOrFail(request('for_institute'));
-            $goals = $institute->goals->pluck("id");
-            $companies = Company::whereHas("goals", function ($query) use ($goals) {
-                $query->whereIn("id", $goals);
-            })->get();
-        }
-        return view('pages.srip3/'.$slug, ['selectedCompany' => isset($company) ? $company : null, 
-                                            'selectedInstitute' => isset($institute) ? $institute : null,
-                                            'institutes' => isset($institutes) ? $institutes : null, 
-                                            'companies' => isset($companies) ? $companies : null]);
+
+        return $items;
     }
 }

@@ -8,7 +8,6 @@ class Field extends Model
 {
     public function goals()
     {
-        return $this->hasMany('App\Goal');
+        return $this->hasMany(Goal::class);
     }
-
 }

@@ -22,8 +22,8 @@ Route::get('institutes', 'FrontPage\InstitutesController@index');
 Route::get('companies', 'FrontPage\CompaniesController@index');
 Route::get('companies/{id}', 'FrontPage\CompaniesController@show')->name('singleCompany');
 Route::get('institutes/{id}', 'FrontPage\InstitutesController@show')->name('singleInstitute');
-Route::get('srip3/{slug}', 'FrontPage\SripController@index');
-Route::get('srip4/{slug}', 'FrontPage\SripController@index');
+Route::get('srip{number}/{slug}/{id}', 'FrontPage\SripController@show')->name("showSripItem");
+Route::get('srip{number}/{slug}', 'FrontPage\SripController@index')->name("sripItems");
 Route::get('export', 'FrontPage\CompaniesController@export')->name('export');
 
 Route::auth();
