@@ -54,12 +54,20 @@
                     </div>
                 </div>
             </div>
-            <router-link :to="{ name: 'edit' }" class="btn btn-warning">Popravi</router-link>
-                <button @click="showModal = true" class="btn btn-danger">
+            <router-link :to="{ name: 'institutes.edit' }" class="btn btn-warning">Popravi</router-link>
+                <button @click="openDeleteModal" class="btn btn-danger">
                     Izbriši
                 </button>
         </div>
-        <deletemodal v-if="showModal" @close="showModal = false" @delete="deleteInstitute">Izbriši objavo? <br> ID: {{ $route.params.id }}</deletemodal>
+        <deletemodal  @close="closeDeleteModal" @delete="deleteInstitute(data.id)">
+            <template #header>
+                <h5 class="modal-title" id="exampleModalLongTitle">Izbriši inštitut?</h5>
+            </template>
+            <template #body>
+                <b>ID: </b>{{ data.id }} <br>
+                <b>Ime: </b>{{ data.name }}
+            </template>
+        </deletemodal>
     </div>
 </template>
 
@@ -75,11 +83,22 @@
         },
 
         methods: {
-            deleteInstitute() {
-                axios.post('institutes/' + this.$route.params.id,{_method: 'delete'})
-                    .then((response) => { this.$router.push({ name: 'institutes', params: { msg: response.data[1] } }) })
+            deleteInstitute(id) {
+                axios.post('institutes/' + id,{_method: 'delete'})
+                    .then((response) => { 
+                        this.$router.push({ name: 'institutes', params: { msg: response.data } }) 
+                        this.closeDeleteModal();
+                    })
                     .catch((error) => { console.log(error)});
             },
+
+            openDeleteModal() {
+                $("#deleteModal").modal("show");
+            },
+
+            closeDeleteModal() {
+                $("#deleteModal").modal("hide");
+            }
         },
 
         mounted() {

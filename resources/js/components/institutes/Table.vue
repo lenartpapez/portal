@@ -90,6 +90,9 @@
                                             <router-link class="dropdown-item btn btn-sm btn-outline-primary" :to="{ name: 'institutes.show', params: { id: institute.id }}">
                                                 <i class="far fa-fw fa-eye mr-1"></i>Preglej
                                             </router-link>
+                                            <router-link class="dropdown-item btn btn-sm btn-outline-primary" :to="{ name: 'institutes.edit', params: { id: institute.id }}">
+                                                <i class="far fa-fw fa-edit mr-1"></i>Popravi
+                                            </router-link>
                                             <a class="dropdown-item btn btn-sm btn-outline-primary" @click="openDeleteModal(institute.id, institute.name)">
                                                 <i class="far fa-fw fa-trash-alt mr-1"></i>Izbriši
                                             </a>

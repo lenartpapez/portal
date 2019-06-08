@@ -484,11 +484,32 @@ body {
   margin-top: 70px;
 }
 
+.goal-data {
+  margin-bottom: 1.5rem;
+  font-size: .9rem;
+}
+
+.goal-data .title {
+  margin-bottom: .4rem;
+  display: block;
+  font-weight: bold;
+}
+
+.goal-data .description {
+  padding-left: 1.5rem;
+}
+
+.divider-details {
+  margin: 2rem 0;
+}
+
 .table .thead-dark th {
   background: #343a40;
 }
 
 .table td {
+  padding: .4rem .75rem;
+  height: 15px;
   vertical-align: middle;
 }
 

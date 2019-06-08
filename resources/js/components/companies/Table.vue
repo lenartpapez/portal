@@ -14,7 +14,7 @@
             </template>
             <template #body>
                 <b>ID: </b>{{ companyId }} <br>
-                <b>Naslov: </b>{{ companyName }}
+                <b>Ime: </b>{{ companyName }}
             </template>
         </deletemodal>
         <importmodal ref="import_modal" @close="closeImportModal" @import="importCompanies">
@@ -92,6 +92,9 @@
                                         <div class="p-2">
                                             <router-link class="dropdown-item btn btn-sm btn-outline-primary" :to="{ name: 'companies.show', params: { id: company.id }}">
                                                 <i class="far fa-fw fa-eye mr-1"></i>Preglej
+                                            </router-link>
+                                            <router-link class="dropdown-item btn btn-sm btn-outline-primary" :to="{ name: 'companies.edit', params: { id: company.id }}">
+                                                <i class="far fa-fw fa-edit mr-1"></i>Popravi
                                             </router-link>
                                             <a class="dropdown-item btn btn-sm btn-outline-primary" @click="openDeleteModal(company.id, company.name)">
                                                 <i class="far fa-fw fa-trash-alt mr-1"></i>Izbriši

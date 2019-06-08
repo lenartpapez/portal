@@ -1521,16 +1521,16 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "3.1.10",
+            "version": "3.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "6a66d5af480bd6f46f689b6ebe2e84912694f311"
+                "reference": "d79ee01175c6a5e93f2a873dcda1b755b7570076"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/6a66d5af480bd6f46f689b6ebe2e84912694f311",
-                "reference": "6a66d5af480bd6f46f689b6ebe2e84912694f311",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/d79ee01175c6a5e93f2a873dcda1b755b7570076",
+                "reference": "d79ee01175c6a5e93f2a873dcda1b755b7570076",
                 "shasum": ""
             },
             "require": {
@@ -1585,7 +1585,7 @@
                 "php",
                 "phpspreadsheet"
             ],
-            "time": "2019-03-18T15:57:28+00:00"
+            "time": "2019-05-08T12:05:59+00:00"
         },
         {
             "name": "maennchen/zipstream-php",

@@ -21,7 +21,7 @@
                             </div>
                             <div class="col-6 col-xl-4 js-appear-enabled animated fadeIn" data-toggle="appear" data-timeout="600">
                                 <p class="font-size-h3 font-w600 text-body-color-dark mb-0">
-                                    7
+                                    {{ companyCount }}
                                 </p>
                                 <p class="font-size-sm font-w700 text-uppercase mb-0">
                                     <i class="si si-briefcase text-muted mr-1"></i> Podjetij
@@ -96,7 +96,7 @@
                                     Sodelujoča podjetja
                                 </p>
                                 <p class="font-size-h3 font-w300 mb-0">
-                                    4
+                                    {{ connectedCompaniesCount }}
                                 </p>
                             </div>
                         </div>

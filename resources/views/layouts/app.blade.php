@@ -39,8 +39,12 @@
         <script src="{{ asset('js/frontvue.js') }}" defer></script>
     @endif
     <script type="text/javascript">
-        function filter(id) {
-            window.location.href =  '?for_company=' + id;
+        function filter(id, type) {
+            if(type == 'company') {
+                window.location.href =  '?for_company=' + id;
+            } else {
+                window.location.href =  '?for_institute=' + id;
+            }
         }
     </script>
 </body>

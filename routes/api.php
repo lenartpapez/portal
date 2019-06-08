@@ -32,6 +32,8 @@ Route::group(['middleware' => 'jwt.auth'], function() {
     Route::post('companies/import', 'Admin\\CompaniesController@import');
     Route::post('company_goal', 'Admin\\WizardController@storeCG');
     Route::delete('company_goal', 'Admin\\CompaniesController@deleteConnection');
+    Route::delete('institute_goal', 'Admin\\InstitutesController@deleteConnection');
+
 
 });
 

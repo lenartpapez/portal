@@ -35,16 +35,29 @@
                     </div>
                     <div class="row push">
                         <div class="col-xl-5 col-12">
-                            <p class="text">
-                                Ime inštituta: <b>{{ data.name }}</b>
-                            </p>
-                             <p class="text">
-                                Kratica: <b>{{ data.short }}</b>
-                            </p>
+                            <div class="form-group">
+                                <label for="name">Ime podjetja:</label>
+                                <input type="text" id="name" class="form-control" v-model="data.name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="short">Kratica:</label>
+                                <input type="text" id="short" class="form-control" v-model="data.short" />
+                            </div>
                             <h2 class="content-heading pt-0 mt-5">Kontaktne osebe:</h2>
-                            <p class="text" v-for="contact in data.contacts" :data="contact" :key="contact.id">
-                                <b>{{ contact.contact_name }}</b>, {{ contact.email }}
-                            </p>
+                            <div class="form-group row mt-3 mb-3" v-for="(con, index) in data.contacts" :key="index">
+                                <div class="col-md-5">
+                                    <label for="contact_name">Ime kontakta</label>
+                                    <input type="text" id="contact_name" class="form-control" v-model="data.contacts[index].contact_name" required>
+                                </div>
+                                <div class="col-md-7">
+                                    <label for="contact_email">Email naslov</label>
+                                    <input type="email" id="contact_email" class="form-control" v-model="data.contacts[index].email" required>
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button class="btn btn-secondary btn-sm" @click="addContact" type="button">Dodaj</button>
+                                <button class="btn btn-secondary btn-sm" @click="removeContact" type="button">Odstrani</button>
+                            </div>
                         </div>
                         <div class="col-xl-7 col-12">
                             <div class="block block-rounded block-bordered block-mode-hidden" v-for="goal in data.goals" :key="goal.id">
@@ -54,21 +67,32 @@
                                         <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle">
                                             <i class="si si-arrow-down"></i>
                                         </button>
+                                        <button type="button" class="btn-block-option" v-on:click="deleteConnection(goal.id)" data-toggle="block-option" data-action="close">
+                                            <i class="si si-close"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="block-content hide">
-                                    <p>Pomanjkljivosti in potrebna pomoč: {{ goal.pivot.help }}</p>
-                                    <p>Investicijski plan: {{ goal.pivot.investment_plan }}</p>
+                                    <div class="form-group">
+                                        <label for="services">Pomanjkljivosti in potrebna pomoč:</label>
+                                        <textarea class="form-control" id="services" rows="3" v-model="goal.pivot.help"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="possibilities">Investicijski plan:</label>
+                                        <textarea class="form-control" id="possibilities" rows="3" v-model="goal.pivot.investment_plan"></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <router-link :to="{ name: 'companies.edit' }" class="btn btn-warning">Popravi</router-link>
-                <button @click="openDeleteModal" class="btn btn-danger">
-                    Izbriši
-                </button>
+            <button @click="onSave" class="btn btn-success mb-5">
+                Shrani
+            </button>
+            <button @click="openDeleteModal" class="btn btn-danger mb-5">
+                Izbriši
+            </button>
         </div>
         <deletemodal @close="closeDeleteModal" @delete="deleteCompany(data.id)">
             <template #header>
@@ -95,14 +119,36 @@
         },
 
         methods: {
+            deleteConnection(id) {
+                axios.post('company_goal?company_id=' + this.$route.params.id + "&goal_id=" + id, { _method: 'delete' })
+                    .then((response) => { this.message = response.data })
+                    .catch((error) => { console.log(error)});
+            },
 
             deleteCompany(id) {
-                axios.post('companies/' + id,{_method: 'delete'})
-                    .then((response) => { 
+                axios.post('companies/' + id, {_method: 'delete'})
+                    .then((response) => {
                         this.$router.push({ name: 'companies', params: { msg: response.data } }) 
                         this.closeDeleteModal();
+                    }).catch((error) => {console.log(error)});
+            },
+
+            addContact() {
+                this.data.contacts.push({ 'contact_name': '', 'email': '' });
+            },
+
+            removeContact() {
+                this.data.contacts.pop();
+            },
+
+            onSave() {
+                axios.post('companies/' + this.data.id, {_method: 'put', data: this.data })
+                    .then(response => {
+                        this.message = response.data;
                     })
-                    .catch((error) => { console.log(error)});
+                    .catch(error => {
+                        this.message = error;
+                    });
             },
 
             openDeleteModal() {
@@ -112,6 +158,7 @@
             closeDeleteModal() {
                 $("#deleteModal").modal("hide");
             }
+
         },
 
         mounted() {
@@ -123,3 +170,9 @@
 
     }
 </script>
+
+<style lang="sass">
+    .block-content.hide p {
+        font-size: .9rem;
+    }
+</style>

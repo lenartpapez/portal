@@ -46,8 +46,27 @@ class CompaniesController extends Controller
        return $company->toJson();
    }
 
-   public function update() {
-
+   public function update(Request $request, $id) {
+        $data = $request->get('data');
+        $company = Company::findOrFail($id);
+        $company->name = $data['name'];
+        $company->short = $data['short'];
+        $company->website = $data['website'];
+        if($company->save()) { 
+            $company->contacts()->delete();
+            foreach($data['contacts'] as $con) {
+                $c = new ContactPerson;
+                $c->contact_name = $con['contact_name'];
+                $c->email = $con['email'];
+                $company->contacts()->save($c);
+            }
+            $company->goals()->detach();
+            foreach($data['goals'] as $goal) {
+                $company->goals()->attach( $goal['id'], [ 'help' => $goal['pivot']['help'], 'investment_plan' => $goal['pivot']['investment_plan'] ]);
+            }
+            return response("Podjetje je bilo uspešno posodobljeno."); 
+        }
+        return response("Podjetje ni bilo uspešno posodobljeno."); 
    }
 
    public function deleteConnection() {

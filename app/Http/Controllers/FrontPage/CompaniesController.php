@@ -5,11 +5,13 @@ namespace App\Http\Controllers\FrontPage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Company;
+use App\Exports\CompaniesExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CompaniesController extends Controller
 {
     public function index() {
-        $companies = Company::with('contacts');
+        $companies = Company::with('contacts', 'goals');
         if(request()->has('search')) {
             $companies = $companies->where('name', 'like', '%'.request('search').'%');
         }
@@ -20,4 +22,8 @@ class CompaniesController extends Controller
        $company = Company::findOrFail($id);
        return view('pages.companies.company', ['company' => $company]);
    }
+   
+   public function export() {
+        return Excel::download(new CompaniesExport(), 'companies.xlsx');
+    }
 }

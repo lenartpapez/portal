@@ -41,15 +41,41 @@ class InstitutesController extends Controller
         return response("Inštitut ni bil uspešno dodan.");  
    }
 
+   public function deleteConnection() {
+        $institute = Institute::find(request('institute_id'));
+        if($institute->goals()->detach(request('goal_id'))) {
+            return response("Cilj odstranjen.");
+        }
+   }
+
 
    public function show($id) {
        $institute = Institute::with('contacts', 'goals.field')->where('id', '=', $id)->first();
        return $institute->toJson();
    }
 
-   public function update() {
-
-   }
+   public function update(Request $request, $id) {
+        $data = $request->get('data');
+        $institute = Institute::findOrFail($id);
+        $institute->name = $data['name'];
+        $institute->short = $data['short'];
+        $institute->website = $data['website'];
+        if($institute->save()) { 
+            $institute->contacts()->delete();
+            foreach($data['contacts'] as $con) {
+                $c = new ContactPerson;
+                $c->contact_name = $con['contact_name'];
+                $c->email = $con['email'];
+                $institute->contacts()->save($c);
+            }
+            $institute->goals()->detach();
+            foreach($data['goals'] as $goal) {
+                $institute->goals()->attach( $goal['id'], [ 'services' => $goal['pivot']['services'], 'possibilities' => $goal['pivot']['possibilities'] ]);
+            }
+            return response("Inštitut je bil uspešno posodobljen."); 
+        }
+        return response("Inštitut ni bil uspešno posodobljen."); 
+    }
 
    public function destroy($id) {
      $institute = Institute::find($id);
