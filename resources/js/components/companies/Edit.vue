@@ -26,60 +26,58 @@
                                 </div>
                             </transition>
                     <div class="row push">
-                        <div class="col-xl-5 col-12">
+                        <div class="col-xl-5 col-12 mb-3">
                             <h2 class="content-heading pt-0">Podatki</h2>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="name">Ime podjetja:</label>
+                                    <input type="text" id="name" class="form-control" v-model="data.name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="short">Kratica:</label>
+                                    <input type="text" id="short" class="form-control" v-model="data.short" />
+                                </div>
+                                <h2 class="content-heading pt-0 mt-5">Kontaktne osebe:</h2>
+                                <div class="form-group row mt-3 mb-3" v-for="(con, index) in data.contacts" :key="index">
+                                    <div class="col-md-5">
+                                        <label for="contact_name">Ime kontakta</label>
+                                        <input type="text" id="contact_name" class="form-control" v-model="data.contacts[index].contact_name" required>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <label for="contact_email">Email naslov</label>
+                                        <input type="email" id="contact_email" class="form-control" v-model="data.contacts[index].email" required>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <button class="btn btn-secondary btn-sm" @click="addContact" type="button">Dodaj</button>
+                                    <button class="btn btn-secondary btn-sm" @click="removeContact" type="button">Odstrani</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-xl-7 col-12">
                             <h2 class="content-heading pt-0">Cilji</h2>
-                        </div>
-                    </div>
-                    <div class="row push">
-                        <div class="col-xl-5 col-12">
-                            <div class="form-group">
-                                <label for="name">Ime podjetja:</label>
-                                <input type="text" id="name" class="form-control" v-model="data.name" />
-                            </div>
-                            <div class="form-group">
-                                <label for="short">Kratica:</label>
-                                <input type="text" id="short" class="form-control" v-model="data.short" />
-                            </div>
-                            <h2 class="content-heading pt-0 mt-5">Kontaktne osebe:</h2>
-                            <div class="form-group row mt-3 mb-3" v-for="(con, index) in data.contacts" :key="index">
-                                <div class="col-md-5">
-                                    <label for="contact_name">Ime kontakta</label>
-                                    <input type="text" id="contact_name" class="form-control" v-model="data.contacts[index].contact_name" required>
-                                </div>
-                                <div class="col-md-7">
-                                    <label for="contact_email">Email naslov</label>
-                                    <input type="email" id="contact_email" class="form-control" v-model="data.contacts[index].email" required>
-                                </div>
-                            </div>
-                            <div class="form-group mt-3">
-                                <button class="btn btn-secondary btn-sm" @click="addContact" type="button">Dodaj</button>
-                                <button class="btn btn-secondary btn-sm" @click="removeContact" type="button">Odstrani</button>
-                            </div>
-                        </div>
-                        <div class="col-xl-7 col-12">
-                            <div class="block block-rounded block-bordered block-mode-hidden" v-for="goal in data.goals" :key="goal.id">
-                                <div class="block-header block-header-default">
-                                    <h3 class="block-title">{{ goal.field.name }} <small> {{ goal.name }}</small></h3>
-                                    <div class="block-options">              
-                                        <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle">
-                                            <i class="si si-arrow-down"></i>
-                                        </button>
-                                        <button type="button" class="btn-block-option" v-on:click="deleteConnection(goal.id)" data-toggle="block-option" data-action="close">
-                                            <i class="si si-close"></i>
-                                        </button>
+                            <div class="col-12">
+                                <div class="block block-rounded block-bordered block-mode-hidden" v-for="goal in data.goals" :key="goal.id">
+                                    <div class="block-header block-header-default">
+                                        <h3 class="block-title">{{ goal.field.name }} <small> {{ goal.name }}</small></h3>
+                                        <div class="block-options">              
+                                            <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle">
+                                                <i class="si si-arrow-down"></i>
+                                            </button>
+                                            <button type="button" class="btn-block-option" v-on:click="deleteConnection(goal.id)" data-toggle="block-option" data-action="close">
+                                                <i class="si si-close"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="block-content hide">
-                                    <div class="form-group">
-                                        <label for="services">Pomanjkljivosti in potrebna pomoč:</label>
-                                        <textarea class="form-control" id="services" rows="3" v-model="goal.pivot.help"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="possibilities">Investicijski plan:</label>
-                                        <textarea class="form-control" id="possibilities" rows="3" v-model="goal.pivot.investment_plan"></textarea>
+                                    <div class="block-content hide">
+                                        <div class="form-group">
+                                            <label for="help">Pomanjkljivosti in potrebna pomoč:</label>
+                                            <textarea class="form-control" id="help" rows="3" v-model="goal.pivot.help"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="investment_plan">Investicijski plan:</label>
+                                            <textarea class="form-control" id="investment_plan" rows="3" v-model="goal.pivot.investment_plan"></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

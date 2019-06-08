@@ -3591,8 +3591,6 @@ module.exports = {
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -3667,8 +3665,6 @@ module.exports = {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {//
-//
-//
 //
 //
 //
@@ -4581,8 +4577,6 @@ module.exports = {
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -4657,9 +4651,6 @@ module.exports = {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {//
-//
-//
-//
 //
 //
 //
@@ -45877,304 +45868,322 @@ var render = function() {
                     : _vm._e()
                 ]),
                 _vm._v(" "),
-                _vm._m(0),
-                _vm._v(" "),
                 _c("div", { staticClass: "row push" }, [
-                  _c(
-                    "div",
-                    { staticClass: "col-xl-5 col-12" },
-                    [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Ime podjetja:")
+                  _c("div", { staticClass: "col-xl-5 col-12 mb-3" }, [
+                    _c("h2", { staticClass: "content-heading pt-0" }, [
+                      _vm._v("Podatki")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12" },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "name" } }, [
+                            _vm._v("Ime podjetja:")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.data.name,
+                                expression: "data.name"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "name" },
+                            domProps: { value: _vm.data.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.data, "name", $event.target.value)
+                              }
+                            }
+                          })
                         ]),
                         _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.data.name,
-                              expression: "data.name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", id: "name" },
-                          domProps: { value: _vm.data.name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "short" } }, [
+                            _vm._v("Kratica:")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.data.short,
+                                expression: "data.short"
                               }
-                              _vm.$set(_vm.data, "name", $event.target.value)
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "short" },
+                            domProps: { value: _vm.data.short },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.data, "short", $event.target.value)
+                              }
                             }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "short" } }, [
-                          _vm._v("Kratica:")
+                          })
                         ]),
                         _vm._v(" "),
-                        _c("input", {
-                          directives: [
+                        _c("h2", { staticClass: "content-heading pt-0 mt-5" }, [
+                          _vm._v("Kontaktne osebe:")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.data.contacts, function(con, index) {
+                          return _c(
+                            "div",
                             {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.data.short,
-                              expression: "data.short"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", id: "short" },
-                          domProps: { value: _vm.data.short },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.data, "short", $event.target.value)
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("h2", { staticClass: "content-heading pt-0 mt-5" }, [
-                        _vm._v("Kontaktne osebe:")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.data.contacts, function(con, index) {
+                              key: index,
+                              staticClass: "form-group row mt-3 mb-3"
+                            },
+                            [
+                              _c("div", { staticClass: "col-md-5" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "contact_name" } },
+                                  [_vm._v("Ime kontakta")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value:
+                                        _vm.data.contacts[index].contact_name,
+                                      expression:
+                                        "data.contacts[index].contact_name"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    id: "contact_name",
+                                    required: ""
+                                  },
+                                  domProps: {
+                                    value: _vm.data.contacts[index].contact_name
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.data.contacts[index],
+                                        "contact_name",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-7" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "contact_email" } },
+                                  [_vm._v("Email naslov")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.data.contacts[index].email,
+                                      expression: "data.contacts[index].email"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "email",
+                                    id: "contact_email",
+                                    required: ""
+                                  },
+                                  domProps: {
+                                    value: _vm.data.contacts[index].email
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.data.contacts[index],
+                                        "email",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group mt-3" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary btn-sm",
+                              attrs: { type: "button" },
+                              on: { click: _vm.addContact }
+                            },
+                            [_vm._v("Dodaj")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary btn-sm",
+                              attrs: { type: "button" },
+                              on: { click: _vm.removeContact }
+                            },
+                            [_vm._v("Odstrani")]
+                          )
+                        ])
+                      ],
+                      2
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-xl-7 col-12" }, [
+                    _c("h2", { staticClass: "content-heading pt-0" }, [
+                      _vm._v("Cilji")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12" },
+                      _vm._l(_vm.data.goals, function(goal) {
                         return _c(
                           "div",
                           {
-                            key: index,
-                            staticClass: "form-group row mt-3 mb-3"
+                            key: goal.id,
+                            staticClass:
+                              "block block-rounded block-bordered block-mode-hidden"
                           },
                           [
-                            _c("div", { staticClass: "col-md-5" }, [
-                              _c("label", { attrs: { for: "contact_name" } }, [
-                                _vm._v("Ime kontakta")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value:
-                                      _vm.data.contacts[index].contact_name,
-                                    expression:
-                                      "data.contacts[index].contact_name"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  id: "contact_name",
-                                  required: ""
-                                },
-                                domProps: {
-                                  value: _vm.data.contacts[index].contact_name
-                                },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.data.contacts[index],
-                                      "contact_name",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "block-header block-header-default"
+                              },
+                              [
+                                _c("h3", { staticClass: "block-title" }, [
+                                  _vm._v(_vm._s(goal.field.name) + " "),
+                                  _c("small", [_vm._v(" " + _vm._s(goal.name))])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "block-options" }, [
+                                  _vm._m(0, true),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn-block-option",
+                                      attrs: {
+                                        type: "button",
+                                        "data-toggle": "block-option",
+                                        "data-action": "close"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deleteConnection(goal.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "si si-close" })]
+                                  )
+                                ])
+                              ]
+                            ),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-md-7" }, [
-                              _c("label", { attrs: { for: "contact_email" } }, [
-                                _vm._v("Email naslov")
+                            _c("div", { staticClass: "block-content hide" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", { attrs: { for: "help" } }, [
+                                  _vm._v("Pomanjkljivosti in potrebna pomoč:")
+                                ]),
+                                _vm._v(" "),
+                                _c("textarea", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: goal.pivot.help,
+                                      expression: "goal.pivot.help"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { id: "help", rows: "3" },
+                                  domProps: { value: goal.pivot.help },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        goal.pivot,
+                                        "help",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
                               ]),
                               _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.data.contacts[index].email,
-                                    expression: "data.contacts[index].email"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "email",
-                                  id: "contact_email",
-                                  required: ""
-                                },
-                                domProps: {
-                                  value: _vm.data.contacts[index].email
-                                },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "investment_plan" } },
+                                  [_vm._v("Investicijski plan:")]
+                                ),
+                                _vm._v(" "),
+                                _c("textarea", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: goal.pivot.investment_plan,
+                                      expression: "goal.pivot.investment_plan"
                                     }
-                                    _vm.$set(
-                                      _vm.data.contacts[index],
-                                      "email",
-                                      $event.target.value
-                                    )
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { id: "investment_plan", rows: "3" },
+                                  domProps: {
+                                    value: goal.pivot.investment_plan
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        goal.pivot,
+                                        "investment_plan",
+                                        $event.target.value
+                                      )
+                                    }
                                   }
-                                }
-                              })
+                                })
+                              ])
                             ])
                           ]
                         )
                       }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group mt-3" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-secondary btn-sm",
-                            attrs: { type: "button" },
-                            on: { click: _vm.addContact }
-                          },
-                          [_vm._v("Dodaj")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-secondary btn-sm",
-                            attrs: { type: "button" },
-                            on: { click: _vm.removeContact }
-                          },
-                          [_vm._v("Odstrani")]
-                        )
-                      ])
-                    ],
-                    2
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-xl-7 col-12" },
-                    _vm._l(_vm.data.goals, function(goal) {
-                      return _c(
-                        "div",
-                        {
-                          key: goal.id,
-                          staticClass:
-                            "block block-rounded block-bordered block-mode-hidden"
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "block-header block-header-default"
-                            },
-                            [
-                              _c("h3", { staticClass: "block-title" }, [
-                                _vm._v(_vm._s(goal.field.name) + " "),
-                                _c("small", [_vm._v(" " + _vm._s(goal.name))])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "block-options" }, [
-                                _vm._m(1, true),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn-block-option",
-                                    attrs: {
-                                      type: "button",
-                                      "data-toggle": "block-option",
-                                      "data-action": "close"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.deleteConnection(goal.id)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "si si-close" })]
-                                )
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "block-content hide" }, [
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("label", { attrs: { for: "services" } }, [
-                                _vm._v("Pomanjkljivosti in potrebna pomoč:")
-                              ]),
-                              _vm._v(" "),
-                              _c("textarea", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: goal.pivot.help,
-                                    expression: "goal.pivot.help"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { id: "services", rows: "3" },
-                                domProps: { value: goal.pivot.help },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      goal.pivot,
-                                      "help",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("label", { attrs: { for: "possibilities" } }, [
-                                _vm._v("Investicijski plan:")
-                              ]),
-                              _vm._v(" "),
-                              _c("textarea", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: goal.pivot.investment_plan,
-                                    expression: "goal.pivot.investment_plan"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { id: "possibilities", rows: "3" },
-                                domProps: { value: goal.pivot.investment_plan },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      goal.pivot,
-                                      "investment_plan",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ])
-                          ])
-                        ]
-                      )
-                    }),
-                    0
-                  )
+                      0
+                    )
+                  ])
                 ])
               ],
               1
@@ -46243,20 +46252,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row push" }, [
-      _c("div", { staticClass: "col-xl-5 col-12" }, [
-        _c("h2", { staticClass: "content-heading pt-0" }, [_vm._v("Podatki")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-xl-7 col-12" }, [
-        _c("h2", { staticClass: "content-heading pt-0" }, [_vm._v("Cilji")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -46393,98 +46388,115 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _vm._m(0),
-                  _vm._v(" "),
                   _c("div", { staticClass: "row push" }, [
-                    _c(
-                      "div",
-                      { staticClass: "col-xl-5 col-12" },
-                      [
-                        _c("p", { staticClass: "text" }, [
-                          _vm._v(
-                            "\n                            Ime inštituta: "
+                    _c("div", { staticClass: "col-xl-5 col-12 mb-3" }, [
+                      _c("h2", { staticClass: "content-heading pt-0" }, [
+                        _vm._v("Podatki")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-12" },
+                        [
+                          _c("p", { staticClass: "text" }, [
+                            _vm._v(
+                              "\n                                Ime inštituta: "
+                            ),
+                            _c("b", [_vm._v(_vm._s(_vm.data.name))])
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "text" }, [
+                            _vm._v(
+                              "\n                                Kratica: "
+                            ),
+                            _c("b", [_vm._v(_vm._s(_vm.data.short))])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "h2",
+                            { staticClass: "content-heading pt-0 mt-5" },
+                            [_vm._v("Kontaktne osebe:")]
                           ),
-                          _c("b", [_vm._v(_vm._s(_vm.data.name))])
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text" }, [
-                          _vm._v("\n                            Kratica: "),
-                          _c("b", [_vm._v(_vm._s(_vm.data.short))])
-                        ]),
-                        _vm._v(" "),
-                        _c("h2", { staticClass: "content-heading pt-0 mt-5" }, [
-                          _vm._v("Kontaktne osebe:")
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.data.contacts, function(contact) {
-                          return _c(
-                            "p",
-                            {
-                              key: contact.id,
-                              staticClass: "text",
-                              attrs: { data: contact }
-                            },
-                            [
-                              _c("b", [_vm._v(_vm._s(contact.contact_name))]),
-                              _vm._v(
-                                ", " +
-                                  _vm._s(contact.email) +
-                                  "\n                        "
-                              )
-                            ]
-                          )
-                        })
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-xl-7 col-12" },
-                      _vm._l(_vm.data.goals, function(goal) {
-                        return _c(
-                          "div",
-                          {
-                            key: goal.id,
-                            staticClass:
-                              "block block-rounded block-bordered block-mode-hidden"
-                          },
-                          [
-                            _c(
-                              "div",
+                          _vm._v(" "),
+                          _vm._l(_vm.data.contacts, function(contact) {
+                            return _c(
+                              "p",
                               {
-                                staticClass: "block-header block-header-default"
+                                key: contact.id,
+                                staticClass: "text",
+                                attrs: { data: contact }
                               },
                               [
-                                _c("h3", { staticClass: "block-title" }, [
-                                  _vm._v(_vm._s(goal.field.name) + " "),
-                                  _c("small", [_vm._v(" " + _vm._s(goal.name))])
+                                _c("b", [_vm._v(_vm._s(contact.contact_name))]),
+                                _vm._v(
+                                  ", " +
+                                    _vm._s(contact.email) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-xl-7 col-12" }, [
+                      _c("h2", { staticClass: "content-heading pt-0" }, [
+                        _vm._v("Cilji")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-12" },
+                        _vm._l(_vm.data.goals, function(goal) {
+                          return _c(
+                            "div",
+                            {
+                              key: goal.id,
+                              staticClass:
+                                "block block-rounded block-bordered block-mode-hidden"
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "block-header block-header-default"
+                                },
+                                [
+                                  _c("h3", { staticClass: "block-title" }, [
+                                    _vm._v(_vm._s(goal.field.name) + " "),
+                                    _c("small", [
+                                      _vm._v(" " + _vm._s(goal.name))
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._m(0, true)
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "block-content hide" }, [
+                                _c("p", [
+                                  _vm._v(
+                                    "Pomanjkljivosti in potrebna pomoč: " +
+                                      _vm._s(goal.pivot.help)
+                                  )
                                 ]),
                                 _vm._v(" "),
-                                _vm._m(1, true)
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "block-content hide" }, [
-                              _c("p", [
-                                _vm._v(
-                                  "Pomanjkljivosti in potrebna pomoč: " +
-                                    _vm._s(goal.pivot.help)
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  "Investicijski plan: " +
-                                    _vm._s(goal.pivot.investment_plan)
-                                )
+                                _c("p", [
+                                  _vm._v(
+                                    "Investicijski plan: " +
+                                      _vm._s(goal.pivot.investment_plan)
+                                  )
+                                ])
                               ])
-                            ])
-                          ]
-                        )
-                      }),
-                      0
-                    )
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ])
                   ])
                 ],
                 1
@@ -46558,20 +46570,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row push" }, [
-      _c("div", { staticClass: "col-xl-5 col-12" }, [
-        _c("h2", { staticClass: "content-heading pt-0" }, [_vm._v("Podatki")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-xl-7 col-12" }, [
-        _c("h2", { staticClass: "content-heading pt-0" }, [_vm._v("Cilji")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -48528,304 +48526,320 @@ var render = function() {
                     : _vm._e()
                 ]),
                 _vm._v(" "),
-                _vm._m(0),
-                _vm._v(" "),
                 _c("div", { staticClass: "row push" }, [
-                  _c(
-                    "div",
-                    { staticClass: "col-xl-5 col-12" },
-                    [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "name" } }, [
-                          _vm._v("Ime inštituta:")
+                  _c("div", { staticClass: "col-xl-5 col-12 mb-3" }, [
+                    _c("h2", { staticClass: "content-heading pt-0" }, [
+                      _vm._v("Podatki")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12" },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "name" } }, [
+                            _vm._v("Ime inštituta:")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.data.name,
+                                expression: "data.name"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "name" },
+                            domProps: { value: _vm.data.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.data, "name", $event.target.value)
+                              }
+                            }
+                          })
                         ]),
                         _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.data.name,
-                              expression: "data.name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", id: "name" },
-                          domProps: { value: _vm.data.name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "short" } }, [
+                            _vm._v("Kratica:")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.data.short,
+                                expression: "data.short"
                               }
-                              _vm.$set(_vm.data, "name", $event.target.value)
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "short" },
+                            domProps: { value: _vm.data.short },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.data, "short", $event.target.value)
+                              }
                             }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { attrs: { for: "short" } }, [
-                          _vm._v("Kratica:")
+                          })
                         ]),
                         _vm._v(" "),
-                        _c("input", {
-                          directives: [
+                        _c("h2", { staticClass: "content-heading pt-0 mt-5" }, [
+                          _vm._v("Kontaktne osebe:")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.data.contacts, function(con, index) {
+                          return _c(
+                            "div",
                             {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.data.short,
-                              expression: "data.short"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", id: "short" },
-                          domProps: { value: _vm.data.short },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.data, "short", $event.target.value)
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("h2", { staticClass: "content-heading pt-0 mt-5" }, [
-                        _vm._v("Kontaktne osebe:")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.data.contacts, function(con, index) {
+                              key: index,
+                              staticClass: "form-group row mt-3 mb-3"
+                            },
+                            [
+                              _c("div", { staticClass: "col-md-5" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "contact_name" } },
+                                  [_vm._v("Ime kontakta")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value:
+                                        _vm.data.contacts[index].contact_name,
+                                      expression:
+                                        "data.contacts[index].contact_name"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    id: "contact_name",
+                                    required: ""
+                                  },
+                                  domProps: {
+                                    value: _vm.data.contacts[index].contact_name
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.data.contacts[index],
+                                        "contact_name",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-7" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "contact_email" } },
+                                  [_vm._v("Email naslov")]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.data.contacts[index].email,
+                                      expression: "data.contacts[index].email"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "email",
+                                    id: "contact_email",
+                                    required: ""
+                                  },
+                                  domProps: {
+                                    value: _vm.data.contacts[index].email
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.data.contacts[index],
+                                        "email",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group mt-3" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary btn-sm",
+                              attrs: { type: "button" },
+                              on: { click: _vm.addContact }
+                            },
+                            [_vm._v("Dodaj")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary btn-sm",
+                              attrs: { type: "button" },
+                              on: { click: _vm.removeContact }
+                            },
+                            [_vm._v("Odstrani")]
+                          )
+                        ])
+                      ],
+                      2
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-xl-7 col-12" }, [
+                    _c("h2", { staticClass: "content-heading pt-0" }, [
+                      _vm._v("Cilji")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12" },
+                      _vm._l(_vm.data.goals, function(goal) {
                         return _c(
                           "div",
                           {
-                            key: index,
-                            staticClass: "form-group row mt-3 mb-3"
+                            key: goal.id,
+                            staticClass:
+                              "block block-rounded block-bordered block-mode-hidden"
                           },
                           [
-                            _c("div", { staticClass: "col-md-5" }, [
-                              _c("label", { attrs: { for: "contact_name" } }, [
-                                _vm._v("Ime kontakta")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value:
-                                      _vm.data.contacts[index].contact_name,
-                                    expression:
-                                      "data.contacts[index].contact_name"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  id: "contact_name",
-                                  required: ""
-                                },
-                                domProps: {
-                                  value: _vm.data.contacts[index].contact_name
-                                },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.data.contacts[index],
-                                      "contact_name",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "block-header block-header-default"
+                              },
+                              [
+                                _c("h3", { staticClass: "block-title" }, [
+                                  _vm._v(_vm._s(goal.field.name) + " "),
+                                  _c("small", [_vm._v(" " + _vm._s(goal.name))])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "block-options" }, [
+                                  _vm._m(0, true),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn-block-option",
+                                      attrs: {
+                                        type: "button",
+                                        "data-toggle": "block-option",
+                                        "data-action": "close"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deleteConnection(goal.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "si si-close" })]
+                                  )
+                                ])
+                              ]
+                            ),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-md-7" }, [
-                              _c("label", { attrs: { for: "contact_email" } }, [
-                                _vm._v("Email naslov")
+                            _c("div", { staticClass: "block-content hide" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", { attrs: { for: "services" } }, [
+                                  _vm._v("Storitve, ki jih nudijo:")
+                                ]),
+                                _vm._v(" "),
+                                _c("textarea", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: goal.pivot.services,
+                                      expression: "goal.pivot.services"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { id: "services", rows: "3" },
+                                  domProps: { value: goal.pivot.services },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        goal.pivot,
+                                        "services",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
                               ]),
                               _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.data.contacts[index].email,
-                                    expression: "data.contacts[index].email"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  type: "email",
-                                  id: "contact_email",
-                                  required: ""
-                                },
-                                domProps: {
-                                  value: _vm.data.contacts[index].email
-                                },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "possibilities" } },
+                                  [_vm._v("Možnost aplikacije v prakso:")]
+                                ),
+                                _vm._v(" "),
+                                _c("textarea", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: goal.pivot.possibilities,
+                                      expression: "goal.pivot.possibilities"
                                     }
-                                    _vm.$set(
-                                      _vm.data.contacts[index],
-                                      "email",
-                                      $event.target.value
-                                    )
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { id: "possibilities", rows: "3" },
+                                  domProps: { value: goal.pivot.possibilities },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        goal.pivot,
+                                        "possibilities",
+                                        $event.target.value
+                                      )
+                                    }
                                   }
-                                }
-                              })
+                                })
+                              ])
                             ])
                           ]
                         )
                       }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "form-group mt-3" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-secondary btn-sm",
-                            attrs: { type: "button" },
-                            on: { click: _vm.addContact }
-                          },
-                          [_vm._v("Dodaj")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-secondary btn-sm",
-                            attrs: { type: "button" },
-                            on: { click: _vm.removeContact }
-                          },
-                          [_vm._v("Odstrani")]
-                        )
-                      ])
-                    ],
-                    2
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-xl-7 col-12" },
-                    _vm._l(_vm.data.goals, function(goal) {
-                      return _c(
-                        "div",
-                        {
-                          key: goal.id,
-                          staticClass:
-                            "block block-rounded block-bordered block-mode-hidden"
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "block-header block-header-default"
-                            },
-                            [
-                              _c("h3", { staticClass: "block-title" }, [
-                                _vm._v(_vm._s(goal.field.name) + " "),
-                                _c("small", [_vm._v(" " + _vm._s(goal.name))])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "block-options" }, [
-                                _vm._m(1, true),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn-block-option",
-                                    attrs: {
-                                      type: "button",
-                                      "data-toggle": "block-option",
-                                      "data-action": "close"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.deleteConnection(goal.id)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "si si-close" })]
-                                )
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "block-content hide" }, [
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("label", { attrs: { for: "services" } }, [
-                                _vm._v("Storitve, ki jih nudijo:")
-                              ]),
-                              _vm._v(" "),
-                              _c("textarea", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: goal.pivot.help,
-                                    expression: "goal.pivot.help"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { id: "services", rows: "3" },
-                                domProps: { value: goal.pivot.help },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      goal.pivot,
-                                      "help",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("label", { attrs: { for: "possibilities" } }, [
-                                _vm._v("Možnost aplikacije v prakso:")
-                              ]),
-                              _vm._v(" "),
-                              _c("textarea", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: goal.pivot.investment_plan,
-                                    expression: "goal.pivot.investment_plan"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { id: "possibilities", rows: "3" },
-                                domProps: { value: goal.pivot.investment_plan },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      goal.pivot,
-                                      "investment_plan",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ])
-                          ])
-                        ]
-                      )
-                    }),
-                    0
-                  )
+                      0
+                    )
+                  ])
                 ])
               ],
               1
@@ -48894,20 +48908,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row push" }, [
-      _c("div", { staticClass: "col-xl-5 col-12" }, [
-        _c("h2", { staticClass: "content-heading pt-0" }, [_vm._v("Podatki")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-xl-7 col-12" }, [
-        _c("h2", { staticClass: "content-heading pt-0" }, [_vm._v("Cilji")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -48997,98 +48997,108 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "block-content" }, [
-                _vm._m(0),
-                _vm._v(" "),
                 _c("div", { staticClass: "row push" }, [
-                  _c(
-                    "div",
-                    { staticClass: "col-xl-3 col-12" },
-                    [
-                      _c("p", { staticClass: "text" }, [
-                        _vm._v("\n                            Ime inštituta: "),
-                        _c("b", [_vm._v(_vm._s(_vm.data.name))])
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "text" }, [
-                        _vm._v("\n                            Kratica: "),
-                        _c("b", [_vm._v(_vm._s(_vm.data.short))])
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("h2", { staticClass: "content-heading pt-0" }, [
-                        _vm._v("Kontaktne osebe:")
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.data.contacts, function(contact) {
-                        return _c(
-                          "p",
-                          {
-                            key: contact.id,
-                            staticClass: "text",
-                            attrs: { data: contact }
-                          },
-                          [
-                            _c("b", [_vm._v(_vm._s(contact.contact_name))]),
-                            _vm._v(
-                              ", " +
-                                _vm._s(contact.email) +
-                                "\n                        "
-                            )
-                          ]
-                        )
-                      })
-                    ],
-                    2
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-xl-8 col-12" },
-                    _vm._l(_vm.data.goals, function(goal) {
-                      return _c(
-                        "div",
-                        {
-                          key: goal.id,
-                          staticClass:
-                            "block block-rounded block-bordered block-mode-hidden"
-                        },
-                        [
-                          _c(
-                            "div",
+                  _c("div", { staticClass: "col-xl-3 col-12" }, [
+                    _c("h2", { staticClass: "content-heading pt-0" }, [
+                      _vm._v("Podatki")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12" },
+                      [
+                        _c("p", { staticClass: "text" }, [
+                          _vm._v(
+                            "\n                                Ime inštituta: "
+                          ),
+                          _c("b", [_vm._v(_vm._s(_vm.data.name))])
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "text" }, [
+                          _vm._v("\n                                Kratica: "),
+                          _c("b", [_vm._v(_vm._s(_vm.data.short))])
+                        ]),
+                        _vm._v(" "),
+                        _c("h2", { staticClass: "content-heading pt-0 mt-5" }, [
+                          _vm._v("Kontaktne osebe:")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.data.contacts, function(contact) {
+                          return _c(
+                            "p",
                             {
-                              staticClass: "block-header block-header-default"
+                              key: contact.id,
+                              staticClass: "text",
+                              attrs: { data: contact }
                             },
                             [
-                              _c("h3", { staticClass: "block-title" }, [
-                                _vm._v(_vm._s(goal.field.name) + " "),
-                                _c("small", [_vm._v(" " + _vm._s(goal.name))])
+                              _c("b", [_vm._v(_vm._s(contact.contact_name))]),
+                              _vm._v(
+                                ", " +
+                                  _vm._s(contact.email) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-xl-9 col-12" }, [
+                    _c("h2", { staticClass: "content-heading pt-0" }, [
+                      _vm._v("Cilji")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12" },
+                      _vm._l(_vm.data.goals, function(goal) {
+                        return _c(
+                          "div",
+                          {
+                            key: goal.id,
+                            staticClass:
+                              "block block-rounded block-bordered block-mode-hidden"
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "block-header block-header-default"
+                              },
+                              [
+                                _c("h3", { staticClass: "block-title" }, [
+                                  _vm._v(_vm._s(goal.field.name) + " "),
+                                  _c("small", [_vm._v(" " + _vm._s(goal.name))])
+                                ]),
+                                _vm._v(" "),
+                                _vm._m(0, true)
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "block-content hide" }, [
+                              _c("p", [
+                                _vm._v(
+                                  "Storitve, ki jih nudijo: " +
+                                    _vm._s(goal.pivot.services)
+                                )
                               ]),
                               _vm._v(" "),
-                              _vm._m(1, true)
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "block-content hide" }, [
-                            _c("p", [
-                              _vm._v(
-                                "Storitve, ki jih nudijo: " +
-                                  _vm._s(goal.pivot.services)
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("p", [
-                              _vm._v(
-                                "Možnost aplikacije v prakso: " +
-                                  _vm._s(goal.pivot.possibilities)
-                              )
+                              _c("p", [
+                                _vm._v(
+                                  "Možnost aplikacije v prakso: " +
+                                    _vm._s(goal.pivot.possibilities)
+                                )
+                              ])
                             ])
-                          ])
-                        ]
-                      )
-                    }),
-                    0
-                  )
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ])
                 ])
               ])
             ]
@@ -49160,20 +49170,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row push" }, [
-      _c("div", { staticClass: "col-xl-3 col-12" }, [
-        _c("h2", { staticClass: "content-heading pt-0" }, [_vm._v("Podatki")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-xl-9 col-12" }, [
-        _c("h2", { staticClass: "content-heading pt-0" }, [_vm._v("Cilji")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

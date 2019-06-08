@@ -10,5 +10,4 @@ class Field extends Model
     {
         return $this->hasMany('App\Goal');
     }
-
 }

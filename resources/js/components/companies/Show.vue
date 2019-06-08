@@ -26,39 +26,37 @@
                                 </div>
                             </transition>
                     <div class="row push">
-                        <div class="col-xl-5 col-12">
+                        <div class="col-xl-5 col-12 mb-3">
                             <h2 class="content-heading pt-0">Podatki</h2>
+                            <div class="col-12">
+                                <p class="text">
+                                    Ime inštituta: <b>{{ data.name }}</b>
+                                </p>
+                                <p class="text">
+                                    Kratica: <b>{{ data.short }}</b>
+                                </p>
+                                <h2 class="content-heading pt-0 mt-5">Kontaktne osebe:</h2>
+                                <p class="text" v-for="contact in data.contacts" :data="contact" :key="contact.id">
+                                    <b>{{ contact.contact_name }}</b>, {{ contact.email }}
+                                </p>
+                            </div>
                         </div>
                         <div class="col-xl-7 col-12">
                             <h2 class="content-heading pt-0">Cilji</h2>
-                        </div>
-                    </div>
-                    <div class="row push">
-                        <div class="col-xl-5 col-12">
-                            <p class="text">
-                                Ime inštituta: <b>{{ data.name }}</b>
-                            </p>
-                             <p class="text">
-                                Kratica: <b>{{ data.short }}</b>
-                            </p>
-                            <h2 class="content-heading pt-0 mt-5">Kontaktne osebe:</h2>
-                            <p class="text" v-for="contact in data.contacts" :data="contact" :key="contact.id">
-                                <b>{{ contact.contact_name }}</b>, {{ contact.email }}
-                            </p>
-                        </div>
-                        <div class="col-xl-7 col-12">
-                            <div class="block block-rounded block-bordered block-mode-hidden" v-for="goal in data.goals" :key="goal.id">
-                                <div class="block-header block-header-default">
-                                    <h3 class="block-title">{{ goal.field.name }} <small> {{ goal.name }}</small></h3>
-                                    <div class="block-options">              
-                                        <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle">
-                                            <i class="si si-arrow-down"></i>
-                                        </button>
+                            <div class="col-12">
+                                <div class="block block-rounded block-bordered block-mode-hidden" v-for="goal in data.goals" :key="goal.id">
+                                    <div class="block-header block-header-default">
+                                        <h3 class="block-title">{{ goal.field.name }} <small> {{ goal.name }}</small></h3>
+                                        <div class="block-options">              
+                                            <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle">
+                                                <i class="si si-arrow-down"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="block-content hide">
-                                    <p>Pomanjkljivosti in potrebna pomoč: {{ goal.pivot.help }}</p>
-                                    <p>Investicijski plan: {{ goal.pivot.investment_plan }}</p>
+                                    <div class="block-content hide">
+                                        <p>Pomanjkljivosti in potrebna pomoč: {{ goal.pivot.help }}</p>
+                                        <p>Investicijski plan: {{ goal.pivot.investment_plan }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
