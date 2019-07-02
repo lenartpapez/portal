@@ -12,6 +12,7 @@ class Company extends Model
     public $timestamps = false;
     protected $fillable = ['name', 'short', 'website'];
     public $sortable = ['name'];
+    protected $appends = ['fp3', 'fp4'];
 
     public function goals()
     {
@@ -20,5 +21,23 @@ class Company extends Model
 
     public function contacts() {
         return $this->morphMany('App\ContactPerson', 'contactable');
+    }
+
+    public function getFP3Attribute() {
+        foreach($this->goals as $goal) {
+            if($goal->field->srip->id == 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getFP4Attribute() {
+        foreach($this->goals as $goal) {
+            if($goal->field->srip->id == 2) {
+                return true;
+            }
+        }
+        return false;
     }
 }

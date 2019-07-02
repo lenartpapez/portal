@@ -17,10 +17,8 @@
                 <div class="block-content">
                     <h2 class="content-heading pt-0">Vsebina</h2>
                     <div class="row push">
-                        <div class="col-xl-3 col-12">
-                            <p class="text-muted">
-                                *img*
-                            </p>
+                        <div class="col-xl-4 col-12">
+                            <img :src="image" alt="">
                         </div>
                         <div class="col-xl-8 col-12">
                             <div v-html="content"></div>
@@ -28,12 +26,20 @@
                     </div>
                 </div>
             </div>
-            <router-link :to="{ name: 'posts.edit' }" class="btn btn-warning">Popravi</router-link>
-                <button @click="showModal = true" class="btn btn-danger">
-                    Izbriši
-                </button>
+            <router-link :to="{ name: 'posts.edit', params: { id: $route.params.id } }" class="btn btn-warning">Popravi</router-link>
+            <button @click="openDeleteModal" class="btn btn-danger">
+                Izbriši
+            </button>
         </div>
-        <deletemodal v-if="showModal" @close="showModal = false" @delete="deletePost">Izbriši objavo? <br> ID: {{ $route.params.id }}</deletemodal>
+        <deletemodal @close="closeDeleteModal" @delete="deletePost()">
+                <template #header>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Izbriši objavo?</h5>
+                </template>
+                <template #body>
+                    <b>ID: </b>{{ $route.params.id }} <br>
+                    <b>Naslov: </b>{{ title }}
+                </template>
+            </deletemodal>
     </div>
 </template>
 
@@ -46,16 +52,26 @@
                 showModal: false,
                 title: '',
                 content: '',
-                image: ''
+                image: null
             }
         },
 
         methods: {
-            deletePost() {
-                axios.post('posts/' + this.$route.params.id,{_method: 'delete'})
-                    .then((response) => { this.$router.push({ name: 'posts', params: { msg: response.data[1] } }) })
-                    .catch((error) => { console.log(error)});
+            openDeleteModal() {
+                $("#deleteModal").modal("show");
             },
+
+            closeDeleteModal() {
+                $("#deleteModal").modal("hide");
+            },
+
+            deletePost() {
+                axios.post('posts/' + this.$route.params.id, {_method: 'delete'})
+                    .then((response) => {
+                        this.$router.push({ name: 'posts', params: { msg: response.data } }) 
+                        this.closeDeleteModal();
+                    }).catch((error) => {console.log(error)});
+            }
         },
 
         mounted() {

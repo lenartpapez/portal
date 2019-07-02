@@ -10,4 +10,9 @@ class Field extends Model
     {
         return $this->hasMany(Goal::class);
     }
+
+    public function srip()
+    {
+        return $this->belongsTo(Srip::class);
+    }
 }

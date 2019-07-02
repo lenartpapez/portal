@@ -1,8 +1,20 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+ window._ = require('lodash');
+
+ import "../../public/assets/dashmix/js/plugins/bootstrap-notify/bootstrap-notify.min";
+ import "../../public/assets/dashmix/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min";
+ import "../../public/assets/dashmix/_es6/main/app";
+
+ window.axios = require('axios');
+
+ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+ let token = document.head.querySelector('meta[name="csrf-token"]');
+
+ if (token) {
+     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+ } else {
+     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+ }
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
@@ -11,9 +23,6 @@ import VueElementLoading from 'vue-element-loading'
 Vue.component('VueElementLoading', VueElementLoading);
 
 import wysiwyg from "vue-wysiwyg";
-
-require('./bootstrap.js');
-require('./extra.js');
 
 import "../../public/assets/dashmix/_scss/main.scss";
 import "../../public/assets/dashmix/_scss/dashmix/themes/xwork.scss";
@@ -34,29 +43,32 @@ Vue.component('contactsmodal', require('./components/ContactsModal.vue').default
 Vue.component('sdbr', require('./components/Sidebar.vue').default);
 Vue.component('hdr', require('./components/Header.vue').default);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 const router = new VueRouter({
     routes: [
-        { name: 'posts', path: '/posts', component: require("./components/posts/Table").default, props: true, meta: { auth: true } },
-        { name: 'dashboard', path: '/', component: require("./components/Dashboard").default, props: true, meta: { auth: true } },
-        { name: 'posts.create', path: '/posts/create', component: require("./components/posts/Create").default, meta: { auth: true } },
-        { name: 'posts.show', path: '/posts/:id', component: require("./components/posts/Show").default, meta: { auth: true } },
-        { name: 'posts.edit', path: '/posts/:id/edit', component: require("./components/posts/Edit").default, meta: { auth: true } },
+        { name: 'dashboard', path: '/', component: require("./components/Dashboard").default, props: true, meta: { auth: ['editor', 'admin', 'super_admin'] } },
+        { name: 'companies', path: '/companies', component: require("./components/companies/Table").default, props: true, meta: { auth: ['admin', 'super_admin'] } },
+        { name: 'companies.create', path: '/companies/create', component: require("./components/companies/Create").default, meta: { auth: ['admin', 'super_admin'] } },
+        { name: 'companies.show', path: '/companies/:id', component: require("./components/companies/Show").default, meta: { auth: ['admin', 'super_admin'] } },
+        { name: 'companies.edit', path: '/companies/:id/edit', component: require("./components/companies/Edit").default, meta: { auth: ['admin', 'super_admin'] } },
+        { name: 'companygoal', path: '/companygoal', component: require("./components/goal_adding/CompanyGoal").default, meta: { auth: ['admin', 'super_admin'] } },
+        { name: 'institutegoal', path: '/institutegoal', component: require("./components/goal_adding/InstituteGoal").default, meta: { auth: ['admin', 'super_admin'] } },
+        { name: 'posts', path: '/posts', component: require("./components/posts/Table").default, props: true, meta: { auth: ['editor', 'super_admin'] } },
+        { name: 'posts.create', path: '/posts/create', component: require("./components/posts/Create").default, meta: { auth: ['editor', 'super_admin'] } },
+        { name: 'posts.show', path: '/posts/:id', component: require("./components/posts/Show").default, meta: { auth: ['editor', 'super_admin'] } },
+        { name: 'posts.edit', path: '/posts/:id/edit', component: require("./components/posts/Edit").default, meta: { auth: ['editor', 'super_admin'] } },
+        { name: 'categories', path: '/categories', component: require("./components/categories/Table").default, props: true, meta: { auth: ['editor', 'super_admin'] } },
+        { name: 'categories.create', path: '/categories/create', component: require("./components/categories/Create").default, meta: { auth: ['editor', 'super_admin'] } },
+        { name: 'categories.edit', path: '/categories/:id/edit', component: require("./components/categories/Edit").default, meta: { auth: ['editor', 'super_admin'] } },
+        { name: 'links', path: '/links', component: require("./components/links/Table").default, props: true, meta: { auth: ['editor', 'super_admin'] } },
+        { name: 'links.create', path: '/links/create', component: require("./components/links/Create").default, meta: { auth: ['editor', 'super_admin'] } },
+        { name: 'links.edit', path: '/links/:id/edit', component: require("./components/links/Edit").default, meta: { auth: ['editor', 'super_admin'] } },
         { name: 'login', path: '/login', component: require("./components/Login").default, meta: { auth: false } },
-        { name: 'institutes', path: '/institutes', component: require("./components/institutes/Table").default, props: true, meta: { auth: true } },
-        { name: 'institutes.create', path: '/institutes/create', component: require("./components/institutes/Create").default, meta: { auth: true } },
-        { name: 'institutes.show', path: '/institutes/:id', component: require("./components/institutes/Show").default, meta: { auth: true } },
-        { name: 'institutes.edit', path: '/institutes/:id/edit', component: require("./components/institutes/Edit").default, meta: { auth: true } },
-        { name: 'companies', path: '/companies', component: require("./components/companies/Table").default, props: true, meta: { auth: true } },
-        { name: 'companies.create', path: '/companies/create', component: require("./components/companies/Create").default, meta: { auth: true } },
-        { name: 'companies.show', path: '/companies/:id', component: require("./components/companies/Show").default, meta: { auth: true } },
-        { name: 'companies.edit', path: '/companies/:id/edit', component: require("./components/companies/Edit").default, meta: { auth: true } },
-        { name: 'companygoal', path: '/companygoal', component: require("./components/connections/CompanyGoal").default, meta: { auth: true } },
-        { name: 'institutegoal', path: '/institutegoal', component: require("./components/connections/InstituteGoal").default, meta: { auth: true } },
+        { name: 'institutes', path: '/institutes', component: require("./components/institutes/Table").default, props: true, meta: { auth: ['admin', 'super_admin'] } },
+        { name: 'institutes.create', path: '/institutes/create', component: require("./components/institutes/Create").default, meta: { auth: ['admin', 'super_admin'] } },
+        { name: 'institutes.show', path: '/institutes/:id', component: require("./components/institutes/Show").default, meta: { auth: ['admin', 'super_admin'] } },
+        { name: 'institutes.edit', path: '/institutes/:id/edit', component: require("./components/institutes/Edit").default, meta: { auth: ['admin', 'super_admin'] } },
+        { name: 'users', path: '/users', component: require("./components/users/Users").default, meta: { auth: ['super_admin'] } },
+        { name: 'forbidden', path: '/403', redirect: {name: 'dashboard'} }
     ]
 });
 
@@ -69,6 +81,12 @@ Vue.use(require('@websanova/vue-auth'), {
 import Main from "./components/Main";
 Main.router = Vue.router;
 new Vue(Main).$mount('#main');
+
+/* $(document).ready(function () {
+    $('.editr--toolbar .dashboard label').click(function (event) {
+        $(event.target).focus()
+    });
+}); */
 
 
 

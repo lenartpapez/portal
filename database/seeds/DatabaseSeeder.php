@@ -4,6 +4,7 @@ use App\Field;
 use App\Goal;
 use App\User;
 use App\Role;
+use App\Category;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->srips();
         $this->fields();
         $this->goals();
+        $this->categories();
         // $this->call(UsersTableSeeder::class);
     }
 
@@ -79,7 +81,9 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        Role::insert(['name' => 'super_admin']);
         Role::insert(['name' => 'admin']);
+        Role::insert(['name' => 'editor']);
         DB::table('role_user')->insert(['role_id' => 1, 'user_id' => 1]);
     }
 
@@ -226,5 +230,16 @@ class DatabaseSeeder extends Seeder
 
         ];
         Goal::insert($goals);
+    }
+
+    public function categories()
+    {
+        $categories = [
+            [ 'title' => 'Laboratoriji' ],
+            [ 'title' => 'Oprema' ],
+            [ 'title' => 'Varnost' ],
+            [ 'title' => 'Kakovost' ]
+        ];
+        Category::insert($categories);
     }
 }

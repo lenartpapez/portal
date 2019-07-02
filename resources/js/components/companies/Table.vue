@@ -70,16 +70,26 @@
                     <tr>
                         <th class="text-center" style="width: 80px;">ID</th>
                         <th>Ime</th>
-                        <th class="d-none d-sm-table-cell" style="width: 15%;">Kratica</th>
+                        <th>3. FP</th>
+                        <th>4. FP</th>
                         <th  class="d-none d-sm-table-cell">Kontakti</th>
-                        <th style="width: 15%;"></th>
+                        <th style="width: 10%;"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="company in laravelData.data" :data="company" :key="company.id">
                         <td class="text-center">{{ company.id }}</td>
                         <td class="font-w600">{{ company.name }}</td>
-                        <td class="font-w600">{{ company.short }}</td>
+                        <td class="font-w600 text-center">
+                            <span v-if="company.fp3">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </td>
+                        <td class="font-w600 text-center">
+                            <span v-if="company.fp4">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </td>
                         <td class="font-w600">
                             <button class="btn btn-primary" @click="openContactsModal(company.name, company.contacts)">Kontakti</button>
                         </td>

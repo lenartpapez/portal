@@ -8,7 +8,8 @@ use Auth;
 use Illuminate\Http\Request;
 use JWTAuth;
 
-class AuthController extends Controller {
+class AuthController extends Controller
+{
 
     /**
      * @param Request $request
@@ -19,16 +20,24 @@ class AuthController extends Controller {
         $credentials = $request->only('email', 'password');
         $user = User::where('email', $request->input('email'))->firstOrFail();
 
-        if( (!$token = JWTAuth::attempt($credentials))) {
+        if ((!$token = JWTAuth::attempt($credentials))) {
             return response([
                 'status' => 'error',
                 'error' => 'invalid.credentials',
-                'msg' => 'Invalid Credentials.'
+                'msg' => 'Vnesli ste napačne podatke.',
+            ], 400);
+        }
+
+        if (!$user->hasRole(['admin', 'super_admin', 'editor'])) {
+            return response([
+                'status' => 'error',
+                'error' => 'invalid.role',
+                'msg' => 'Nimate administratorskih pravic.',
             ], 400);
         }
 
         return response([
-            'status' => 'success'
+            'status' => 'success',
         ])->header('Authorization', $token);
     }
 
@@ -39,9 +48,10 @@ class AuthController extends Controller {
     public function user(Request $request)
     {
         $user = User::find(Auth::user()->id);
+        $user->roles = $user->roles()->pluck("name");
         return response([
             'status' => 'success',
-            'data' => $user
+            'data' => $user,
         ]);
     }
 
@@ -51,7 +61,7 @@ class AuthController extends Controller {
     public function refresh()
     {
         return response([
-            'status' => 'success'
+            'status' => 'success',
         ]);
     }
 
@@ -60,7 +70,7 @@ class AuthController extends Controller {
         JWTAuth::invalidate();
         return response([
             'status' => 'success',
-            'msg' => 'Logged out Successfully.'
+            'msg' => 'Logged out Successfully.',
         ], 200);
     }
 

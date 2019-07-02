@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form v-if="logged" @submit.prevent="addComment">
+        <form @submit.prevent="addComment">
             <div class="form-row mb-3">
                 <div class="col">
                     <wysiwyg id="comments" v-model="comment" placeholder="Vnesi komentar..."></wysiwyg>
@@ -12,16 +12,13 @@
                 </div>
             </div>
         </form>
-        <div v-else class="mb-5">
-            <p>Za dodajanje komentarjev se morate prijaviti.</p>
-        </div>
-        <div class="container mt-5">
+        <div class="container mt-4" style="min-height: unset; padding-top: unset; padding-bottom: unset;">
             <vue-element-loading spinner="line-scale" color="#1C3D5A" :active="isLoading"/>
             <div class="row mb-3" style="padding: 20px 30px; background: #f7f7f7; border: 1px solid #eee" v-for="comment in comments" :key="comment.id">
                 <div class="media">
                     <div class="media-body">
                         <p class="mt-3"><b>{{ comment.created_at | format }}</b></p>
-                        <p class="mt-0" style="font-size: 16px">{{ comment.username }}</p>
+                        <p class="mt-0" style="font-size: 16px">{{ comment.user.name }}</p>
                         <p style="font-size: 16px">{{ comment.content }}</p>
                     </div>
                 </div>
@@ -34,11 +31,9 @@
     export default {
         data() {
             return {
-                logged: '',
                 id: '',
                 comment: '',
                 comments: [],
-                users: [],
                 isLoading: true
             }
         },
@@ -49,7 +44,6 @@
             }.bind(this), 1000);
             this.id = window.location.pathname.split('/').pop();
             this.getComments();
-            this.loggedIn();
         },
 
         methods: {
@@ -59,15 +53,9 @@
                 }).catch(error => console.log(error));
             },
 
-            loggedIn() {
-                axios.get(this.id + '/user').then((response) => {
-                    this.logged = response.data;
-                }).catch(error => console.log(error));
-            },
-
             addComment() {
                 axios.post('addcomment', {
-                    id: this.id,
+                    post_id: this.id,
                     comment: this.comment
                 }).then((response) => {
                     setTimeout(function() {

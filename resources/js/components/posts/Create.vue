@@ -45,7 +45,13 @@
 										size="1.5"
 										:removable="true"
 										button-class="btn btn-primary"
-										:custom-strings="{upload: '<h1>Neuspešno!</h1>', drag: 'Povleci sliko ali klikni na to okno', change: 'Zamenjaj', remove: 'Odstrani'}"
+										:custom-strings="{
+												upload: '<h1>Neuspešno!</h1>', 
+												drag: 'Povleci sliko ali klikni na to okno', 
+												change: 'Zamenjaj', 
+												remove: 'Odstrani',
+												filseSize: 'Prevelika datoteka'
+										}"
 										@change="onChange"
 										@remove="onRemove"
 									></picture-input>
@@ -77,7 +83,8 @@ export default {
 		return {
 			title: '',
 			content: '',
-			image: null
+			image: null,
+			loading: false
 		}
 	},
 
@@ -87,6 +94,7 @@ export default {
 
 	methods: {
 		create() {
+			Dashmix.block('state_loading', '#createPostBlock');
 			let formData = new FormData()
 			formData.append('title', this.title)
 			formData.append('content', this.content)
@@ -95,8 +103,7 @@ export default {
 				formData.append('image', this.image)
 			}
 
-			axios
-				.post('posts', formData, {
+			axios.post('posts', formData, {
 					headers: {
 						'Content-Type': 'multipart/form-data'
 					}
@@ -108,16 +115,12 @@ export default {
 					})
 				})
 				.catch(error => {
-					console.log(error)
+					console.log(error.response.data)
 				})
 		},
 		onChange(image) {
 			if (image) {
 				this.image = this.$refs.imageInput.file
-			} else {
-				console.log(
-					'FileReader API not supported: use the <form>, Luke!'
-				)
 			}
 		},
 
@@ -125,11 +128,25 @@ export default {
 			if (image) {
 				this.image = null
 			}
-		}
+		},
 	}
 }
 </script>
 
 <style>
-</style>>
+	.loader {
+		border: 4px solid #fff;
+		border-radius: 50%;
+		border-top: 4px solid #000;
+		width: 30px;
+		height: 30px;
+		-webkit-animation: spin 1s linear infinite; /* Safari */
+		animation: spin 1s linear infinite;
+	}
+
+	@keyframes spin {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
+	}
+</style>
 

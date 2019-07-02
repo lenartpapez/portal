@@ -4,7 +4,7 @@
             <div class="bg-primary-light">
                 <div class="content content-full justify-content-between d-flex">
                     <h1 class="font-size-h2 text-white my-0 d-inline-block">
-                        <i class="fa fa-plus text-white-50 mr-1"></i> Dodaj inštitut
+                        <i class="fa fa-plus text-white-50 mr-1"></i> Dodaj inštitucijo
                     </h1>
                     <a class="btn btn-light" @click="$router.go(-1)">
                         <i class="fas fa-arrow-left"></i> Nazaj
@@ -28,7 +28,7 @@
 
                             <div class="form-group row">
                                 <div class="col-lg-12">
-                                    <label for="title">Ime inštituta</label>
+                                    <label for="title">Ime inštitucije</label>
                                     <input type="text" id="name" class="form-control" name="name" v-model="name" required>
                                 </div>
                             </div>

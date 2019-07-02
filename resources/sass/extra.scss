@@ -6,12 +6,26 @@ html, body {
 }
 
 .container {
-  margin-top: 70px;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  min-height: calc(100vh - 220px);
 }
 
-.goal-data {
-  margin-bottom: 1.5rem;
+.contact, .website {
   font-size: .9rem;
+}
+
+.connection {
+  .field {
+    font-size: 1rem;
+  }
+  .goal {
+    font-size: .8rem;
+  }
+}
+.goal-data {
+  margin-bottom: 1rem;
+  font-size: .8rem;
   .title {
     margin-bottom: .4rem;
     display: block;
@@ -23,7 +37,7 @@ html, body {
 }
 
 .divider-details {
-  margin: 2rem 0;
+  margin: 1.5rem 0;
 }
 
 .table .thead-dark th {
@@ -39,17 +53,43 @@ html, body {
 .navbar {
   position: relative;
   background: #e9e9e9;
-  height: 100px;
   color: #1c1c1c;
   font-weight: 400;
   z-index: 1;
+}
+
+@media screen and (max-width: 767px) {
+  .navbar-collapse {
+    margin: 40px 0;
+    
+  }
+  .navbar .dropdown-menu {
+    left: 130px;
+    top: 194px !important;
+    width: 70px;
+  }
 }
 
 .position-ref {
   position: relative;
 }
 
+.goals {
+  color: #343a40;
+  border: 1px solid #343a40;
+  &:hover {
+    background: #eee;
+    color: #343a40;
+  }
+  &.active {
+    border: none;
+    color: white;
+    background: #343a40;
+  }
+}
+
 .postsBtn {
+  font-size: .9rem;
   background: rgba(55, 163, 53, 0.62);
   border: none;
   &:hover {
@@ -66,6 +106,10 @@ html, body {
     margin: 0;
     color: #000;
     border-radius: 0;
+  }
+
+  #sripdropdown:hover>.dropdown-menu {
+      display: inline-flex;
   }
 
   .pagination > .active > .page-link {
@@ -91,12 +135,18 @@ html, body {
 .wlcom {
   transition: all .2s ease-in-out;
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 }
 
 .navbar-brand {
   z-index: auto;
+  .logo {
+        height: 95px;
+        margin-left: -20px;
+        margin-bottom: 4px;
+        margin-right: -10px;
+  }
 }
 
 .links {
@@ -118,6 +168,12 @@ html, body {
 .alert-success {
   border-radius: 0 !important;
   height: 48px;
+}
+
+.footer {
+  font-size: 13px;
+  height: 100px;
+  background: #e9e9e9;
 }
 
 // wysiwyg
@@ -172,7 +228,7 @@ html, body {
   .dropdown-menu {
     transform: unset !important;
     margin-top: 0 !important;
-    top: 64px !important;
+    top: 100% !important;
     border: 0;
     padding: 0;
     width: 100%;
@@ -180,8 +236,11 @@ html, body {
       display: flex;
     }
     .dropdown-item {
-      text-align: center;
+      height: 60px;
       background: #ececec;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       &:hover {
         background: darken(#ececec, 10%);
       }
@@ -192,9 +251,28 @@ html, body {
   }
 }
 
+.navbar {
+  .dropdown-menu {
+    top: 90px;
+  }
+}
+
+#fields {
+
+}
+
+.tab-details {
+  border: 1px solid #e9e9e9;
+  border-top: 0;
+}
+
 #link {
   border-radius: 0;
   border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
   &:hover {
     transition: .2s;
     background: #343a40 !important;
@@ -203,7 +281,7 @@ html, body {
   box-shadow: none;
   .card-body {
     h3 {
-      font-size: 1.3rem;
+      font-size: 1em;
       display: table-cell;
       vertical-align: middle;
     }

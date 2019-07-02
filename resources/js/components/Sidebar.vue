@@ -20,21 +20,33 @@
                         <i class='nav-main-link-icon si si-home'></i>
                         <span class="nav-main-link-name">Domov</span>
                     </router-link>
-                    <router-link class="nav-main-link" :to="{ name: 'posts' }">
+                    <router-link v-if="$auth.check('super_admin')" class="nav-main-link" :to="{ name: 'users' }">
+                        <i class='nav-main-link-icon si si-user'></i>
+                        <span class="nav-main-link-name">Uporabniki</span>
+                    </router-link>
+                    <router-link v-if="$auth.check(['super_admin', 'editor'])" class="nav-main-link" :to="{ name: 'posts' }">
                         <i class='nav-main-link-icon si si-printer'></i>
                         <span class="nav-main-link-name">Novice</span>
                     </router-link>
-                     <router-link class="nav-main-link" :to="{ name: 'institutes' }">
-                        <i class='nav-main-link-icon si si-graduation'></i>
-                        <span class="nav-main-link-name">Inštituti</span>
+                    <router-link v-if="$auth.check(['super_admin', 'editor'])" class="nav-main-link" :to="{ name: 'categories' }">
+                        <i class='nav-main-link-icon si si-list'></i>
+                        <span class="nav-main-link-name">Kategorije</span>
                     </router-link>
-                    <router-link class="nav-main-link" :to="{ name: 'companies' }">
+                    <router-link v-if="$auth.check(['super_admin', 'editor'])" class="nav-main-link" :to="{ name: 'links' }">
+                        <i class='nav-main-link-icon si si-link'></i>
+                        <span class="nav-main-link-name">Povezave</span>
+                    </router-link>
+                     <router-link v-if="$auth.check(['super_admin', 'admin'])" class="nav-main-link" :to="{ name: 'institutes' }">
+                        <i class='nav-main-link-icon si si-graduation'></i>
+                        <span class="nav-main-link-name">Inštitucije</span>
+                    </router-link>
+                    <router-link v-if="$auth.check(['super_admin', 'admin'])" class="nav-main-link" :to="{ name: 'companies' }">
                         <i class='nav-main-link-icon si si-briefcase'></i>
                         <span class="nav-main-link-name">Podjetja</span>
                     </router-link>
-                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                    <a v-if="$auth.check(['super_admin', 'admin'])" class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                         <i class="nav-main-link-icon si si-refresh"></i>
-                        <span class="nav-main-link-name">Povezovanje</span>
+                        <span class="nav-main-link-name">Dodajanje ciljev</span>
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
@@ -46,7 +58,7 @@
                         <li class="nav-main-item">
                            <router-link class="nav-main-link" :to="{ name: 'institutegoal' }">
                                 <i class='nav-main-link-icon si si-arrow-right'></i>
-                                <span class="nav-main-link-name">Inštituti</span>
+                                <span class="nav-main-link-name">Inštitucije</span>
                             </router-link>
                         </li>
                     </ul>
@@ -61,10 +73,8 @@
     export default {
         data() {
             return {
-
             }
         },
-
         methods: {
 
         }

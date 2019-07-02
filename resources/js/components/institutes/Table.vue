@@ -10,7 +10,7 @@
         </contactsmodal>
         <deletemodal ref="mod" @close="closeDeleteModal" @delete="deleteInstitute(instituteId)">
             <template #header>
-                <h5 class="modal-title" id="exampleModalLongTitle">Izbriši inštitut?</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Izbriši inštitucijo?</h5>
             </template>
             <template #body>
                 <b>ID: </b>{{ instituteId }} <br>
@@ -52,11 +52,11 @@
         </div>
         <div class="block block-rounded block-bordered" id="postsBlock">
             <div class="block-header block-header-default">
-                <h3 class="block-title">Inštituti</h3>
+                <h3 class="block-title">Inštitucije</h3>
                 <div class="block-options">
                     <div class="custom-file">
-                        <router-link class="create btn btn-sm btn-outline-primary" :to="{ name: 'institutes.create' }">Dodaj inštitut</router-link>
-                        <button class="btn btn-sm btn-outline-success" @click.prevent="triggerFilePrompt">Uvozi inštitute in kontakte</button>
+                        <router-link class="create btn btn-sm btn-outline-primary" :to="{ name: 'institutes.create' }">Dodaj inštitucijo</router-link>
+                        <button class="btn btn-sm btn-outline-success" @click.prevent="triggerFilePrompt">Uvozi inštitucije in kontakte</button>
                         <input ref="import" @change="previewImport" type="file" style="display:none" />
                     </div>
                 </div>
@@ -67,16 +67,26 @@
                     <tr>
                         <th class="text-center" style="width: 80px;">ID</th>
                         <th>Ime</th>
-                        <th class="d-none d-sm-table-cell" style="width: 15%;">Kratica</th>
+                        <th>3. FP</th>
+                        <th>4. FP</th>
                         <th  class="d-none d-sm-table-cell">Kontakti</th>
-                        <th style="width: 15%;"></th>
+                        <th style="width: 10%;"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="institute in laravelData.data" :data="institute" :key="institute.id">
                         <td class="text-center">{{ institute.id }}</td>
                         <td class="font-w600">{{ institute.name }}</td>
-                        <td class="font-w600">{{ institute.short }}</td>
+                        <td class="font-w600 text-center">
+                            <span v-if="institute.fp3">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </td>
+                        <td class="font-w600 text-center">
+                            <span v-if="institute.fp4">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        </td>
                         <td class="font-w600">
                             <button class="btn btn-primary" @click="openContactsModal(institute.name, institute.contacts)">Kontakti</button>
                         </td>

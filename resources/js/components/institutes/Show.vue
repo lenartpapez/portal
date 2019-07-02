@@ -20,10 +20,13 @@
                             <h2 class="content-heading pt-0">Podatki</h2>
                             <div class="col-12">
                                 <p class="text">
-                                    Ime inštituta: <b>{{ data.name }}</b>
+                                    Ime inštitucije: <b>{{ data.name }}</b>
                                 </p>
                                 <p class="text">
                                     Kratica: <b>{{ data.short }}</b>
+                                </p>
+                                <p class="text">
+                                    Spletna stran: <b>{{ data.website }}</b>
                                 </p>
                                 <h2 class="content-heading pt-0 mt-5">Kontaktne osebe:</h2>
                                 <p class="text" v-for="contact in data.contacts" :data="contact" :key="contact.id">

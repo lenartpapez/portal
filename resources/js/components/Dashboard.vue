@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="$auth.check(['super_admin', 'admin'])">
         <div class="bg-white-90">
             <div class="content content-full">
                 <div class="row">
@@ -16,7 +16,7 @@
                                     {{ instituteCount }}
                                 </p>
                                 <p class="font-size-sm font-w700 text-uppercase mb-0">
-                                    <i class="si si-graduation text-muted mr-1"></i> Inštitutov
+                                    <i class="si si-graduation text-muted mr-1"></i> Inštitucij
                                 </p>
                             </div>
                             <div class="col-6 col-xl-4 js-appear-enabled animated fadeIn" data-toggle="appear" data-timeout="600">
@@ -76,7 +76,7 @@
                             </div>
                             <div class="ml-3 text-right">
                                 <p class="text-muted mb-0">
-                                    Sodelujoči inštituti
+                                    Sodelujoče inštitucije
                                 </p>
                                 <p class="font-size-h3 font-w300 mb-0">
                                     {{ connectedInstituteCount }}
@@ -101,6 +101,35 @@
                             </div>
                         </div>
                     </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-else>
+        <div class="bg-white-90">
+            <div class="content content-full">
+                <div class="row">
+                    <div class="col-md-6 d-md-flex align-items-md-center">
+                        <div class="py-4 py-md-0 text-center text-md-left js-appear-enabled animated fadeIn" data-toggle="appear">
+                            <h1 class="font-size-h2 mb-2">Dashboard</h1>
+                            <h2 class="font-size-lg font-w400 text-muted mb-0">Informacijski portal</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12 col-xl-12 js-appear-enabled animated fadeIn" data-toggle="appear">
+                    <router-link class="block block-rounded block-link-pop" :to="{ name: 'posts'}">
+                        <div class="block-content block-content-full d-flex align-items-center justify-content-between">
+                            <div class="ml-3 text-right">
+                                <p class="text-muted mb-0">
+                                    Samo za urejanje novic, kategorij in povezav
+                                </p>
+                            </div>
+                        </div>
+                    </router-link>
                 </div>
             </div>
         </div>

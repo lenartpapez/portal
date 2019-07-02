@@ -1,40 +1,125 @@
+@php
+    if($number == 3) {
+        $text = '3. fokusno področje - Napredna oprema in tehnologije za pridelavo in predelavo hrane';
+        $url = 'https://www.gzs.si/srip-hrana/vsebina/Podro%C4%8Dja/Napredna-oprema-in-tehnologije-za-pridelavo-in-predelavo-hrane';
+    } else {
+        $text = '4. fokusno področje - Higiena, varnost in kakovost hrane';
+        $url = 'https://www.gzs.si/srip-hrana/vsebina/Podro%C4%8Dja/Higiena-varnost-in-kakovost-hrane';
+    }
+@endphp
+
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-       <h4>Podjetja in njihovi sorodni inštituti</h4>
-       <span class="text-muted">Izberite podjetje in izpisali se bodo inštituti z enakimi cilji</span>
-        <select onchange="filter('{{route('sripItems', ['number' => $number, 'slug' => $slug])}}', this.value)" class="form-control mt-3 mb-5" name="for_company" id="for_company">
-            <option value="">Izberite podjetje</option>
-            @foreach($items as $company)
-                <option value="{{ $company->id }}">
-                    {{ $company->name }}
-                </option>
-            @endforeach
-        </select>
-        @isset($item)
-            <h6 class="text-muted mt-2">Inštituti z vsaj enim enakim ciljem kot podjetje: <strong>{{ $item->name }}</strong></h6>
-        @endisset
-       @isset($related)
-            <table class="table table-bordered table-hover center mt-4">
-                <tr>
-                    <th width="50%">Ime</th>
-                    <th>Spletna stran</th>
-                    <th width="20px"></th>
-                </tr>
-                @if($related->count())
-                    @foreach($related as $institute)
-                            <tr>
-                                <td>{{ $institute->name }}</td>
-                                <td>{{ $institute->website }}</td>
-                                <td>
-                                    <a class="btn btn-dark" role="button" href="{{ route('singleInstitute', $institute->id) }}">
-                                        Več
-                                    </a>
-                                </td>
-                            </tr>
-                    @endforeach
-                @endif
-            </table>
-       @endisset
+<div class="container">
+    <h5 class="mb-5">
+        {{ $text }}
+    </h5>
+    <ul class="list-group list-group-flush mb-5">
+        <li class="list-group-item">
+            <a href="{{ $url }}" target="_blank">
+                Področja in cilji
+            </a>
+        </li>
+    </ul>
+    <h4>Podjetja in sorodne inštitucije</h4>
+    <span class="text-muted">Izberite podjetje in izpisale se bodo inštitucije z enakimi cilji</span>
+    <select onchange="filter('{{route('sripItems', ['number' => $number, 'slug' => $slug])}}', this.value)"
+        class="form-control mt-3 mb-2">
+        <option value="">Izberite podjetje</option>
+        @foreach($items as $company)
+        <option value="{{ $company->id }}">
+            {{ $company->name }}
+        </option>
+        @endforeach
+    </select>
+    @isset($item)
+    <select onchange="filter('{{ route('showSripItem', ['number' => $number, 'slug' => $slug, 'itemId' => $item->id])}}', this.value)"
+        class="form-control mb-4">
+        <option value="">Izberite področje in cilj</option>
+        @foreach($item->goals as $selectedGoal)
+            <option value="{{ $selectedGoal->id }}">
+                <b>{{ $selectedGoal->field->name }}</b> - {{ $selectedGoal->name }}
+            </option>
+        @endforeach
+    </select>
+    <h6 class="text-muted mt-2 mb-1">Izbrano podjetje: <strong>{{ $item->name }}</strong></h6>
+    @endisset
+    @isset($goal)
+        <h6 class="text-muted mt-2 mb-3">Izbrano področje in cilj: <strong>{{ $goal->field->name }}</strong> - {{ $goal->name }}
+        </h6>
+    @endisset
+    @isset($related)
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="mt-3" style="font-size: 14px">
+            <span class="d-block mb-3">
+                <strong>Pomanjkljivosti in potrebna pomoč:</strong><br>
+                {{  $goal->pivot->help }}
+            </span>
+            <span>
+                <strong>Investicijski plan:</strong><br>
+                {{ $goal->pivot->investment_plan }}
+            </span>
+        </div>
     </div>
+    <button class="btn btn-light float-right mb-2 mt-3">
+        <a style="text-decoration: none; color: unset"
+            href=" {{ route('exportResults', ['slug' => $slug, 'itemId' => $item->id, 'goalId' => $goal->id ]) }}">
+            <i class="fas fa-download mr-1"></i> Izvozi v .xlsx
+        </a>
+    </button>
+    <table class="table table-bordered table-hover center mt-3">
+        <tr>
+            <th width="50%">Ime</th>
+            <th>Cilj</th>
+            <th width="20px"></th>
+        </tr>
+        @if($related->count())
+        @foreach($related as $institute)
+        <tr>
+            <td>{{ $institute->name }}</td>
+            <td class="p-0">
+                <div id="accordion">
+                    <div class="card" style="border: none">
+                        <div class="card-header text-left" style="border: none" id="{{ $institute->id }}-header">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link pl-0" data-toggle="collapse"
+                                    data-target="#{{ $institute->id }}-details" aria-expanded="false"
+                                    aria-controls="{{ $institute->id }}-details">
+                                    Podrobnosti
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="{{ $institute->id }}-details" class="collapse"
+                            aria-labelledby="{{ $institute->id }}-header" data-parent="#accordion">
+                            <div class="card-body pt-1">
+                                @foreach($institute->goals as $goal)
+                                @if($goal->id == basename(request()->path()))
+                                <div class="mt-3" style="font-size: 13px">
+                                    <span class="d-block mb-3">
+                                        <strong>Storitve, ki jih nudijo:</strong><br>
+                                        {{  $goal->pivot->services }}
+                                    </span>
+                                    <span>
+                                        <strong>Možnost aplikacije v prakso:</strong><br>
+                                        {{ $goal->pivot->possibilities }}
+                                    </span>
+                                </div>
+                                @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <a class="btn btn-dark" role="button" href="{{ route('singleInstitute', $institute->id) }}">
+                    Več
+                </a>
+            </td>
+        </tr>
+        @endforeach
+        @endif
+    </table>
+    @endisset
+</div>
 @endsection

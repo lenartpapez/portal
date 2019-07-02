@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
         if($exception instanceof \InvalidArgumentException) {
             return response()->view('errors.200', ["Ta stran ne obstaja."], 200);
         }
-        if($exception instanceof UnauthorizedException) {
+        if($exception instanceof \UnauthorizedException) {
             return response()->view('errors.500', ["Za dostop do te strani morate biti prijavljeni"], 500);
         }
         return parent::render($request, $exception);

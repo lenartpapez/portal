@@ -54,6 +54,9 @@
                                             <router-link class="dropdown-item btn btn-sm btn-outline-primary" :to="{ name: 'posts.show', params: { id: post.id }}">
                                                 <i class="far fa-fw fa-eye mr-1"></i>Preglej
                                             </router-link>
+                                            <router-link class="dropdown-item btn btn-sm btn-outline-primary" :to="{ name: 'posts.edit', params: { id: post.id }}">
+                                                <i class="far fa-fw fa-edit mr-1"></i>Popravi
+                                            </router-link>
                                             <a class="dropdown-item btn btn-sm btn-outline-primary" @click="openDeleteModal(post.id, post.title)">
                                                 <i class="far fa-fw fa-trash-alt mr-1"></i>Izbriši
                                             </a>
@@ -106,9 +109,9 @@
                 axios.post('posts/' + id, {_method: 'delete'})
                     .then((response) => {
                         this.getResults();
-                        this.message = response.data[1];
+                        this.message = response.data;
                     }).catch((error) => {console.log(error)});
-                this.$refs.mod.$emit('close');
+                this.closeDeleteModal();
             },
 
             getResults(page = 1) {

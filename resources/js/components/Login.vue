@@ -56,18 +56,22 @@
                         email: app.email,
                         password: app.password
                     },
-                    success: function () {
+                    success: () => {
+                        if(this.$auth.check('editor')) {
+                            this.$router.push({name: 'posts'});
+                        }
                     },
-                    error: function () {},
-                    rememberMe: true,
+                    error: (error) => {
+                        this.error = error;
+                        this.msg = error.response.data.msg;
+                        this.wasError = true;
+                        setTimeout(function() {
+                            this.wasError = false;
+                        }.bind(this), 1500);
+                    },
+                    rememberMe: false,
                     redirect: '/',
                     fetchUser: true,
-                }).catch((error) => {
-                    this.error = error;
-                    this.wasError = true;
-                    setTimeout(function() {
-                        this.wasError = false;
-                    }.bind(this), 1500);
                 });
             },
         },

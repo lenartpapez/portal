@@ -30,12 +30,16 @@
                             <h2 class="content-heading pt-0">Podatki</h2>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="name">Ime inštituta:</label>
+                                    <label for="name">Ime inštitucije:</label>
                                     <input type="text" id="name" class="form-control" v-model="data.name" />
                                 </div>
                                 <div class="form-group">
                                     <label for="short">Kratica:</label>
                                     <input type="text" id="short" class="form-control" v-model="data.short" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="url">Spletna stran:</label>
+                                    <input type="url" id="url" class="form-control" v-model="data.website" />
                                 </div>
                                 <h2 class="content-heading pt-0 mt-5">Kontaktne osebe:</h2>
                                 <div class="form-group row mt-3 mb-3" v-for="(con, index) in data.contacts" :key="index">
@@ -57,14 +61,14 @@
                         <div class="col-xl-7 col-12">
                             <h2 class="content-heading pt-0">Cilji</h2>
                             <div class="col-12">
-                                <div class="block block-rounded block-bordered block-mode-hidden" v-for="goal in data.goals" :key="goal.id">
+                                <div class="block block-rounded block-bordered block-mode-hidden" v-for="(goal, index) in data.goals" :key="goal.id">
                                     <div class="block-header block-header-default">
                                         <h3 class="block-title">{{ goal.field.name }} <small> {{ goal.name }}</small></h3>
                                         <div class="block-options">              
                                             <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle">
                                                 <i class="si si-arrow-down"></i>
                                             </button>
-                                            <button type="button" class="btn-block-option" v-on:click="deleteConnection(goal.id)" data-toggle="block-option" data-action="close">
+                                            <button type="button" class="btn-block-option" v-on:click="deleteConnection(index)" data-toggle="block-option" data-action="close">
                                                 <i class="si si-close"></i>
                                             </button>
                                         </div>
@@ -117,10 +121,8 @@
         },
 
         methods: {
-            deleteConnection(id) {
-                axios.post('institute_goal?institute_id=' + this.data.id + "&goal_id=" + id, { _method: 'delete' })
-                    .then((response) => { this.message = response.data })
-                    .catch((error) => { console.log(error)});
+            deleteConnection(index) {
+                this.data.goals.splice(index, 1);
             },
 
             deleteInstitute(id) {

@@ -8,12 +8,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Notifications\MailResetPasswordToken;
+use App\Role;
 
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
     /**
      * Send a password reset email to the user
      */
@@ -30,8 +35,12 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany('App\Role');
     }
 
-    public function isAdmin() {
-        return $this->roles->contains('name', 'admin');
+    public function hasRole($roles) {
+        foreach($roles as $role) {
+            if($this->roles->contains('name', $role)) {
+                return true;
+            }
+        }
     }
 
     /**

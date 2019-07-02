@@ -35,6 +35,9 @@
                                 <p class="text">
                                     Kratica: <b>{{ data.short }}</b>
                                 </p>
+                                <p class="text">
+                                    Spletna stran: <b>{{ data.website }}</b>
+                                </p>
                                 <h2 class="content-heading pt-0 mt-5">Kontaktne osebe:</h2>
                                 <p class="text" v-for="contact in data.contacts" :data="contact" :key="contact.id">
                                     <b>{{ contact.contact_name }}</b>, {{ contact.email }}
