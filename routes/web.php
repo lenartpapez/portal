@@ -11,17 +11,18 @@
 |
 */
 
+Route::group(['middleware' => 'basicAuth'], function () {
+    Route::get('/', 'FrontPage\PostsController@latest');
+    Route::get('posts', 'FrontPage\PostsController@all');
+    Route::get('posts/{id}', 'FrontPage\PostsController@single')->name('singlePost');
+    Route::get('posts/{id}/comments', 'FrontPage\PostsController@getComments');
+    Route::get('fields', 'FrontPage\SripController@getSrips');
+    Route::get('fields/{id}', 'FrontPage\SripController@getFieldsAndGoals')->name('fields');
+    Route::get('links', 'FrontPage\CategoriesController@index');
+    Route::get('contacts', 'FrontPage\ContactsController@index');
+});
 
-Route::get('/', 'FrontPage\PostsController@latest')->middleware('basicAuth');
-Route::get('posts', 'FrontPage\PostsController@all');
-Route::get('posts/{id}', 'FrontPage\PostsController@single')->name('singlePost');
-Route::get('posts/{id}/comments', 'FrontPage\PostsController@getComments');
-Route::get('fields', 'FrontPage\SripController@getSrips');
-Route::get('fields/{id}', 'FrontPage\SripController@getFieldsAndGoals')->name('fields');
-Route::get('links', 'FrontPage\CategoriesController@index');
-Route::get('contacts', 'FrontPage\ContactsController@index');
-
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => ['auth', 'basicAuth']], function() {
     Route::get('institutes', 'FrontPage\InstitutesController@index');
     Route::get('companies', 'FrontPage\CompaniesController@index');
     Route::get('srip{number}/{slug}/{id}', 'FrontPage\SripController@show')->name("showSripItem");
@@ -36,5 +37,5 @@ Route::group(['middleware' => 'auth'], function() {
 
 Route::auth();
 
-Route::get('admin', 'Admin\AdminController@index')->name('admin');
-Route::get('{slug}', 'SubpagesController@index')->name('subpage');
+Route::get('admin', 'Admin\AdminController@index')->name('admin')->middleware('basicAuth');
+Route::get('{slug}', 'SubpagesController@index')->name('subpage')->middleware('basicAuth');
