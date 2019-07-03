@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', 'FrontPage\PostsController@latest');
+
+Route::get('/', 'FrontPage\PostsController@latest')->middleware('basicAuth');
 Route::get('posts', 'FrontPage\PostsController@all');
 Route::get('posts/{id}', 'FrontPage\PostsController@single')->name('singlePost');
 Route::get('posts/{id}/comments', 'FrontPage\PostsController@getComments');
