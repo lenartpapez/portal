@@ -69,7 +69,7 @@
                 </div>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="/{{ $slug }}/institutes">Za inštitucije</a>
+                <a class="dropdown-item" href="/{{ $slug }}/institutes">Za institucije</a>
                 <a class="dropdown-item" href="/{{ $slug }}/companies">Za podjetja</a>
             </div>
         </div>

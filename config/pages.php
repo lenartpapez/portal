@@ -1,7 +1,7 @@
 <?php 
 
 return [
-    "institutes" => "Inštitucije",
+    "institutes" => "Institucije",
     "companies" => "Podjetja",
     "srip3" => "3. FP Področja-Cilji",
     "srip4" => "4. FP Področja-Cilji",

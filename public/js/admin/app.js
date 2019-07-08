@@ -46947,7 +46947,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("span", { staticClass: "nav-main-link-name" }, [
-                      _vm._v("Inštitucije")
+                      _vm._v("Institucije")
                     ])
                   ]
                 )
@@ -47037,7 +47037,7 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("span", { staticClass: "nav-main-link-name" }, [
-                        _vm._v("Inštitucije")
+                        _vm._v("Institucije")
                       ])
                     ]
                   )

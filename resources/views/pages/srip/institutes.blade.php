@@ -21,11 +21,11 @@
             </a>
         </li>
     </ul>
-    <h4>Inštitucije in sorodna podjetja</h4>
-    <span class="text-muted">Izberite inštitucijo in izpisala se bodo podjetja z enakimi cilji</span>
+    <h4>Institucije in sorodna podjetja</h4>
+    <span class="text-muted">Izberite institucijo in izpisala se bodo podjetja z enakimi cilji</span>
     <select onchange="filter('{{route('sripItems', ['number' => $number, 'slug' => $slug])}}', this.value)"
         class="form-control mt-3 mb-5">
-        <option value="">Izberite inštitucijo</option>
+        <option value="">Izberite institucijo</option>
         @foreach($items as $institute)
         <option value="{{ $institute->id }}">
             {{ $institute->name }}
@@ -43,7 +43,7 @@
             </option>
             @endforeach
         </select>
-        <h6 class="text-muted mt-2 mb-1">Izbrana inštitucija: <strong>{{ $item->name }}</strong></h6>
+        <h6 class="text-muted mt-2 mb-1">Izbrana institucija: <strong>{{ $item->name }}</strong></h6>
     @endisset
     @isset($goal)
         <h6 class="text-muted mt-2 mb-3">Izbrano področje in cilj: <strong>{{ $goal->field->name }}</strong> - {{ $goal->name }}

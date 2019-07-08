@@ -38,7 +38,7 @@
                     </router-link>
                      <router-link v-if="$auth.check(['super_admin', 'admin'])" class="nav-main-link" :to="{ name: 'institutes' }">
                         <i class='nav-main-link-icon si si-graduation'></i>
-                        <span class="nav-main-link-name">Inštitucije</span>
+                        <span class="nav-main-link-name">Institucije</span>
                     </router-link>
                     <router-link v-if="$auth.check(['super_admin', 'admin'])" class="nav-main-link" :to="{ name: 'companies' }">
                         <i class='nav-main-link-icon si si-briefcase'></i>
@@ -58,7 +58,7 @@
                         <li class="nav-main-item">
                            <router-link class="nav-main-link" :to="{ name: 'institutegoal' }">
                                 <i class='nav-main-link-icon si si-arrow-right'></i>
-                                <span class="nav-main-link-name">Inštitucije</span>
+                                <span class="nav-main-link-name">Institucije</span>
                             </router-link>
                         </li>
                     </ul>
