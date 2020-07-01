@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->fields();
         $this->goals();
         $this->categories();
-        // $this->call(UsersTableSeeder::class);
+        $this->call(PostsTableSeeder::class);
     }
 
     // Fill the fields
